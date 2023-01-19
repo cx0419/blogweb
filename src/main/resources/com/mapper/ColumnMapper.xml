@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ColumnMapper">
+
+    <resultMap id="ColumnResultMap" type="com.pojo.Column">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="userId"/>
+        <result column="show" property="show"/>
+        <result column="picture" property="picture"/>
+    </resultMap>
+
+    <resultMap id="BlogColumnResultMap" type="com.pojo.BlogColumn">
+        <result column="id" property="id"/>
+        <result column="blog_id" property="blogId"/>
+        <result column="column_id" property="columnId"/>
+    </resultMap>
+
+
+    <insert id="insertColumn" parameterType="com.pojo.Column" useGeneratedKeys="true" keyProperty = "id" keyColumn = "id">
+        INSERT INTO t_column( name, introduction,user_id,picture,`show`)
+        values(#{name},#{introduction},#{userId},#{picture},#{show})
+    </insert>
+    <insert id="insertBlogColumn" parameterType="com.pojo.BlogColumn">
+        INSERT INTO t_blog_column(blog_id,column_id)
+        values(#{blogId},#{columnId})
+    </insert>
+    <update id="updateColumnById">
+        update blogweb.t_column
+        set blogweb.t_column.name = #{name},introduction = #{introduction},picture = #{picture}
+        where id = #{id}
+    </update>
+    <update id="alterColumnShow">
+        update blogweb.t_column
+        set `show` = #{show}
+        where id = #{columnid}
+    </update>
+    <delete id="deleteColumnByCId">
+        delete from blogweb.t_column where t_column.id=#{id}
+    </delete>
+    <delete id="deleteBlogColumnByByCId">
+        delete from blogweb.t_blog_column where blogweb.t_blog_column.column_id = #{id}
+    </delete>
+    <delete id="deleteColumnById">
+        delete from blogweb.t_column where id=#{id}
+    </delete>
+    <select id="selectColumnByNameAndUId" resultType="com.pojo.Column" resultMap="ColumnResultMap">
+        select id
+        from t_column
+        where name=#{name} and user_id = #{userid}
+    </select>
+    <select id="selectBlogColumnByBC" resultType="com.pojo.BlogColumn" resultMap="BlogColumnResultMap">
+        select id
+        from t_blog_column
+        where blog_id=#{blogId} and column_id=#{columnId}
+    </select>
+    <select id="selectColumnsByKey" resultType="com.pojo.Column" resultMap="ColumnResultMap">
+        select *
+        from t_column
+        where `name` like concat('%',#{key},'%') or `introduction` like concat('%',#{key},'%')
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="selectBlogColumnsByCId" resultType="com.pojo.BlogColumn" resultMap="BlogColumnResultMap">
+        select *
+        from t_blog_column
+        where column_id = #{id};
+    </select>
+    <select id="selectColumnsNumByKey" resultType="java.lang.Integer" >
+        select count(*)
+        from t_column
+        where `name` like concat('%',#{key},'%') or `introduction` like concat('%',#{key},'%')
+    </select>
+    <select id="selectColumnsByBlogId" resultType="com.pojo.Column" resultMap="ColumnResultMap">
+        select *
+        from t_column c
+        join (select column_id from t_blog_column where blog_id=#{id}) as cb
+        on c.id = cb.column_id
+
+    </select>
+    <select id="selectBlogNumByColumnId" resultType="java.lang.Integer">
+        select count(*)
+        from t_blog_column
+        where column_id=#{id}
+    </select>
+    <select id="selectColumnNumByUId" resultType="java.lang.Integer">
+        select count(*)
+        from blogweb.t_column
+        where user_id=#{id}
+    </select>
+    <select id="selectColumnsByCId" resultType="com.pojo.Column" resultMap="ColumnResultMap">
+        select *
+        from t_column
+        where id = #{id}
+    </select>
+    <select id="selectColumnsByUId" resultType="com.pojo.Column" resultMap="ColumnResultMap">
+        select *
+        from t_column
+        where user_id = #{userid}
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="selectColumnsNumByUId" resultType="java.lang.Integer">
+        select count(*)
+        from t_column
+        where user_id = #{userid}
+    </select>
+    <select id="selectColumnById" resultType="com.pojo.Column">
+        select *
+        from t_column
+        where id = #{columnid}
+    </select>
+    <select id="selectColumnByUserId" resultType="com.pojo.Column">
+        select *
+        from blogweb.t_column
+        where user_id = #{userid}
+    </select>
+    <select id="getAllColumnByUserId" resultType="com.pojo.Column">
+        select *
+        from blogweb.t_column
+        where user_id = #{userid}
+    </select>
+
+
+</mapper>

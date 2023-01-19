@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="js/axios-0.18.0.min.js"></script>
+<script>
+    // axios({
+    //     method:"get",
+    //     url:"http://localhost:8080/BlogWeb/AxiosServlet?username=zhangsan"
+    // }).then(function (resp){
+    //     alert(resp.data);
+    // })
+
+    axios({
+        method:"post",
+        url:"http://localhost:8080/BlogWeb/AxiosServlet",
+        data: "username=zhangsan,password = 123"
+    }).then(function (resp){
+        alert(resp.data);
+        alert();
+        Integer
+    })
+
+</script>
+</body>
+</html>

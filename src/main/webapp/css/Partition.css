@@ -1,0 +1,120 @@
+.maincontent{
+    position: absolute;
+    width: 1200px;
+    margin: 0 auto auto auto;
+    top: 74px;
+    left: 0;
+    right: 0;
+    /*bottom: 0; 这个bottom会影响到div的增长*/
+    /*display: none;*/
+    background-color: white;
+    border-radius: 20px;
+    min-height: 1000px;
+    display: flow-root;
+}
+.maincontent-top{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 50px;
+    width: 1200px;
+}
+.bloglsitout{
+    padding: 10px 10px 40px 10px;
+}
+/**
+博客单元格
+ */
+.Botunit{
+    margin-top: 40px;
+    width: 995px;
+    height: 130px;
+    min-height: 130px;
+    /* background-color: #8fb98d; */
+    border-bottom: 1px solid #ececec;
+    padding:0px 20px;
+}
+.Articleunit-top{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.ArticleTitle{
+    cursor: pointer;
+}
+.ArticleTitle:hover{
+    color: red;
+}
+.Articleunit-mid{
+    width: 995px;
+    height: 50px;
+    display: flex
+}
+.mid-content{
+    margin-left: 10px;
+    color: #afafaf;
+    width: 700px;
+    height: 73%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.Articleunit-bottom{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.ArticleTime{
+    color: #afafaf;
+}
+.ArticleDraft{
+    /*width: 50px;*/
+    /*background-color: #f36838;*/
+    display: block;
+
+}
+.bottom-outinfo{
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.bottom-info{
+    width: 120px;
+    height: 20px;
+    display: flex;
+    margin-right: 3px;
+    color: #afafaf;
+}
+.bottom-info-left{
+    margin-right: 3px;
+}
+.bottom-info-right{
+
+}
+.unit-btn{
+    border: none;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: white;
+}
+.shanchu{
+    color: red;
+}
+.bianji{
+    color: #00BFFF;
+}
+.liulan{
+    color: #00BFFF;
+}
+.bottom-cover{
+    width: 150px;
+    height: 100px;
+    margin-top: -75px;
+    margin-left: -150px;
+    border: 1px solid #bdbdbd;
+}
+/**
+博客单元格
+ */

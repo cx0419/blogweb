@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CommentMapper">
+
+    <resultMap id="CommentResultMap" type="com.pojo.Comment">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="blog_id" property="blogId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="parent_comment_id" property="parentCommentId"/>
+        <result column="top_comment_id" property="topCommentId"/>
+        <result column="is_delete" property="isdelete"/>
+        <result column="content" property="content"/>
+    </resultMap>
+    <insert id="addComment">
+
+    </insert>
+    <insert id="insertComment" useGeneratedKeys = "true" keyProperty = "id" keyColumn = "id">
+        insert into t_comment (user_id,create_time, blog_id, parent_comment_id,top_comment_id,
+                               isdelete, content)
+        values (#{userId},#{createTime},#{blogId},#{parentCommentId},#{topCommentId},#{isdelete},#{content});
+    </insert>
+    <select id="selectCommentsByBlogId" resultType="com.pojo.Comment" resultMap="CommentResultMap">
+        select *
+        from blogweb.t_comment
+        where blog_id = #{id} and top_comment_id = 0
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="selectCommentsByTopCId" resultType="com.pojo.Comment" resultMap="CommentResultMap">
+        select *
+        from blogweb.t_comment
+        where top_comment_id = #{id};
+
+    </select>
+    <select id="selectCommentsNumByBlogId" resultType="java.lang.Integer">
+        select count(*)
+        from blogweb.t_comment
+        where blog_id = #{id};
+    </select>
+    <select id="selectCommentById" resultType="com.pojo.Comment" resultMap="CommentResultMap">
+        select *
+        from blogweb.t_comment
+        where id = #{id};
+
+    </select>
+    <select id="selectAllBlogIdByUserLike" resultType="java.lang.Long">
+        select blog_id
+        from t_like
+        where user_id = #{userid} and isdelete = false;
+
+    </select>
+
+
+</mapper>

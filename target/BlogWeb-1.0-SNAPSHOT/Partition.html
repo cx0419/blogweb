@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/Partition.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fenye.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/fenye.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/headnav.css">
+    <script src="js/loadnav.js"></script>
+</head>
+<body>
+<!-- 导航栏 -->
+<div class="head">
+    <div class="head-lead">
+        <ul>
+            <li class="head-lead-nav"><a href="http://localhost:8080/BlogWeb/index.html">首页</a></li>
+            <li class="head-lead-nav"><a href="">分区</a></li>
+            <li class="head-lead-nav"><a href="">社区</a></li>
+            <li class="head-lead-nav"><a href="">学习</a></li>
+        </ul>
+    </div>
+    <div class="head-search">
+        <input type="search" name="" id="searchsomething" placeholder="搜点什么吧......">
+        <button id="nav-searchbtn" type="button">搜索</button>
+    </div>
+    <div class="head-myself">
+        <ul>
+            <li class="head-myself-nav"><a id="edit" href="http://localhost:8080/BlogWeb/edit.html">创作</a></li>
+            <li id="nav-msgbtn" class="head-myself-nav"><a href="">消息</a></li>
+            <li id="nav-collectionbtn" class="head-myself-nav"><a href="">收藏</a></li>
+            <li id="nav-focusbtn" class="head-myself-nav"><a href="">关注</a></li>
+            <li id="nav-myblogbtn" class="head-myself-nav"><a href="">博客</a></li>
+            <li class="head-myself-nav" id="avatarli"><img id="avatar"
+                                                           src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg"
+                                                           alt="">
+                <div class="head-myself-infobolck" id="head-myself-infobolck">
+                    <!-- 头像 名字 -->
+                    <div class="head-myself-infobolck-name"><h2 id="nav-nickname">程序员1</h2><span id="nav-introduction">--</span>
+                    </div>
+                    <!-- 粉丝展示 -->
+                    <div class="head-myself-infobolck-fans">
+                        <div><h4 class="infobolck-fans-left" id="nav-fansnum">0</h4>
+                            <h3 class="infobolck-fans-right">粉丝</h3></div>
+                        <div><h4 class="infobolck-fans-left" id="nav-view">0</h4>
+                            <h3 class="infobolck-fans-right">访问量</h3></div>
+                        <div><h4 class="infobolck-fans-left" id="nav-likenum">0</h4>
+                            <h3 class="infobolck-fans-right">获赞</h3></div>
+                    </div>
+                    <!-- 导航 -->
+                    <div class="head-myself-infobolck-nav">
+                        <ul>
+                            <li><a id="personalCenter" href="http://localhost:8080/BlogWeb/personalCenter.html"><span
+                                    class="iconfont">&#xe643;</span>个人中心</a></li>
+                            <li><a id="AlterPassword" href="http://localhost:8080/BlogWeb/personalCenter.html"><span
+                                    class="iconfont">&#xe83e;</span>修改密码</a></li>
+                            <li><a id="createBlog" href=""><span class="iconfont">&#xe67d;</span>内容管理</a></li>
+                            <li class="exit-login"><a id="exitlogin" href=""><span class="iconfont">&#xe6ba;</span>退出登录</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <div class="maincontent">
+        <div class="maincontent-top">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a style="color: #fc5531" class="navbar-brand" href="#">博客分区</a>
+                    </div>
+                    <div id="myexample1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">后端开发<b
+                                    class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="tagA" href="#">.NET</a></li>
+                                    <li><a class="tagA" id="action-1" href="#">Java</a></li>
+                                    <li><a class="tagA" href="#">Python</a></li>
+                                    <li><a class="tagA" href="#">Go</a></li>
+                                    <li><a class="tagA" href="#">PHP</a></li>
+                                    <li><a class="tagA" href="#">C++</a></li>
+                                    <li><a class="tagA" href="#">Ruby</a></li>
+                                    <li><a class="tagA" href="#">Swift</a></li>
+                                    <li><a class="tagA" href="#">C语言</a></li>
+                                    <li><a class="tagA" href="#">Erlang</a></li>
+                                    <li><a class="tagA" href="#">Delphi</a></li>
+                                    <li><a class="tagA" href="#">Scala</a></li>
+                                    <li><a class="tagA" href="#">R语言</a></li>
+                                    <li><a class="tagA" href="#">Verilog</a></li>
+                                    <li><a class="tagA" href="#">Dart</a></li>
+                                    <li><a class="tagA" href="#">其他语言</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="myexample2">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">前端开发<b
+                                    class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="tagA" id="action-2" href="#">HTML/CSS</a></li>
+                                    <li><a class="tagA" href="#">JavaScript</a></li>
+                                    <li><a class="tagA" href="#">JQuery</a></li>
+                                    <li><a class="tagA" href="#">HTML5</a></li>
+                                    <li><a class="tagA" href="#">Angular</a></li>
+                                    <li><a class="tagA" href="#">React</a></li>
+                                    <li><a class="tagA" href="#">Vue</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="myexample3">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">数据库<b
+                                    class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a id="action-3" href="#">SQL Server</a></li>
+                                    <li><a href="#">Oracle</a></li>
+                                    <li><a href="#">MySQL</a></li>
+                                    <li><a href="#">PostgreSQL</a></li>
+                                    <li><a href="#">NoSQL</a></li>
+                                    <li><a href="#">大数据</a></li>
+                                    <li><a href="#">其他数据库</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="bloglsitout" class="bloglsitout">
+
+        </div>
+
+    </div>
+<script>
+    getnavinfo();
+    $(function () {
+        // 默认显示
+        $(".dropdown-toggle").dropdown('toggle');
+    });
+</script>
+<!--博客列表-->
+<script>
+    //发送请求,拉取含有某个标签的博客
+    function pullBlogByTagName(TagName) {
+        function findBlogs(num) {
+            AxiosPostRequst("http://localhost:8080/BlogWeb/TagServlet?method=selectAllBlogsByTagName", {
+                tagname: TagName,
+                pagenum: num,
+            }).then(res => {
+                let page = res.page;
+                let pageSize = page.pageSize;
+                let pageNum = page.pageNum;
+                let pages = page.pages;
+                let total = page.total;
+                let blogs = page.data;
+                document.getElementById("bloglist").innerHTML = "";
+                for (let i = 0; i < blogs.length; i++) {
+                    let blog = blogs[i];
+                    let gotoblogpagebtn = 'gotoblogpagebtn' + blog.id;
+                    let original = blog.original === true ? "原创" : "转载";
+                    let str =
+                        "                    <div class=\"Articleunit-top\">\n" +
+                        "                        <h3 id='" + gotoblogpagebtn + "' class=\"ArticleTitle\">" + blog.title + "</h3>\n" +
+                        "                        <div class=\"ArticleTime\">" + blog.createTime.substr(0, 19) + "</div>\n" +
+                        "                    </div>\n" +
+                        "                    <div class=\"Articleunit-mid\">\n" +
+                        "                        <div class=\"ArticleDraft\">" + original + "</div>\n" +
+                        "                    </div>\n" +
+                        "                    <div class=\"Articleunit-bottom\">\n" +
+                        "                        <div class=\"bottom-outinfo\">\n" +
+                        "                            <div class=\"bottom-info\">\n" +
+                        "                                <div class=\"bottom-info-left\">展现量</div>\n" +
+                        "                                <div class=\"bottom-info-right ArticleViews\">" + blog.views + "</div>\n" +
+                        "                            </div>\n" +
+                        "                            <div class=\"bottom-info\">\n" +
+                        "                                <div class=\"bottom-info-left\">评论</div>\n" +
+                        "                                <div class=\"bottom-info-right ArticleComment\">" + blog.comment + "</div>\n" +
+                        "                            </div>\n" +
+                        "                            <div class=\"bottom-info\">\n" +
+                        "                                <div class=\"bottom-info-left\">收藏</div>\n" +
+                        "                                <div class=\"bottom-info-right ArticleCollection\">" + blog.collection + "</div>\n" +
+                        "                            </div>\n" +
+                        "                        </div>\n" +
+                        "                    </div>\n";
+                    let div = document.createElement('li');
+                    div.classList.add('Articleunit');
+                    div.innerHTML = str;
+                    $('#bloglist').append(div);
+                    $('#'+gotoblogpagebtn).on('click', e => {
+                        window.open("http://localhost:8080/BlogWeb/blogPage.html?articleid=" + blog.id);
+                    })
+                }
+            });
+        }
+
+        //完成初始化
+        AxiosPostRequst("http://localhost:8080/BlogWeb/TagServlet?method=selectAllBlogsByTagName", {
+            tagname: TagName,
+            pagenum: 1
+        }).then(res => {
+            //初始化列表
+            document.getElementById("bloglsitout").innerHTML = "                <div id='bloglist' class=\"bloglist\">\n" +
+                "\n" +
+                "                </div>\n" +
+                "                <div class=\"page_1\"></div>";
+            let page = res.page;
+            let pageSize = page.pageSize;
+            let pageNum = page.pageNum;
+            let pages = page.pages;
+            let total = page.total;
+            let obj_3 = {
+                obj_box: '.page_1',//翻页容器
+                total_item: total,//条目总数
+                per_num: pageSize,//每页条目数
+                current_page: pageNum//当前页
+            };
+            page_ctrl(obj_3, findBlogs);
+        });
+    }
+
+    //设置分区点击事件
+    $('body').on('click', '.tagA', e => {
+        let tagname = e.target.innerHTML;
+        pullBlogByTagName(tagname);
+    })
+
+</script>
+</body>
+</html>

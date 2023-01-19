@@ -1,0 +1,195 @@
+
+
+.content{
+    position: absolute;
+    margin: 0 auto 0 auto;
+    top: 75px;
+    left: 0;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 200px;
+}
+.content-top1{
+    margin: 10px 25px;
+    height: 100px;
+    width:950px;
+    display: flex;
+    align-items: center;
+    color: #bababa;
+}
+.content-top-left{
+    width: 400px;
+    height: 100px;
+    display: flex;
+}
+.content-top-cover{
+    width: 88px;
+    height: 88px;
+}
+.content-top-name{
+    width: 300px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+.column-name{
+    color: black;
+    width: 300px;
+    height: 50px;
+    font-weight: 600;
+    font-size: 20px;
+}
+.column-num{
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.guanzhushu:before{
+    content: "关注数:";
+}
+.wenzhangshu:before{
+    content: "文章数:";
+}
+.wenzhangyueduliang:before{
+    content: "文章阅读量:";
+}
+.wenzhangshoucangliang:before{
+    content: "文章展示量:";
+}
+
+.content-mid{
+    height: 100px;
+    width: 900px;
+    margin: 30px 50px 60px 50px;
+    background-color: #f9fafb;
+    padding:5px 5px;
+}
+.content-mid-name{
+    color: #bababa;
+    height: 50px;
+}
+.content-mid-name:before{
+    content: "作者:";
+    color: #979797;
+    font-weight: 600;
+}
+.content-mid-introduction{
+    height: 50px;
+    color: #bababa;
+}
+.content-bottom{
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+.bloglist{
+    position: relative;
+    border-top: 1px solid #d2d2d2;
+    width: 1000px;
+    min-height: 500px;
+    border-bottom: 1px solid #bababa;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.femyenav{
+    position: relative;
+    height: 150px;
+    width: 1000px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+/*//博客单元格*/
+.Botunit{
+    width: 1000px;
+    height: 130px;
+    /* background-color: #8fb98d; */
+    border-bottom: 1px solid #ececec;
+    padding:0px 20px;
+}
+.Articleunit-top{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.ArticleTitle{
+    cursor: pointer;
+}
+.ArticleTitle:hover{
+    color: red;
+}
+.Articleunit-mid{
+    width: 995px;
+    height: 50px;
+    display: flex
+}
+.mid-content{
+    margin-left: 10px;
+    color: #afafaf;
+    width: 700px;
+    height: 73%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.Articleunit-bottom{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.ArticleTime{
+    color: #afafaf;
+}
+.ArticleDraft{
+    /*width: 50px;*/
+    /*background-color: #f36838;*/
+    display: block;
+
+}
+.bottom-outinfo{
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.bottom-info{
+    width: 120px;
+    height: 20px;
+    display: flex;
+    margin-right: 3px;
+    color: #afafaf;
+}
+.bottom-info-left{
+    margin-right: 3px;
+}
+.bottom-info-right{
+
+}
+.unit-btn{
+    border: none;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: white;
+}
+.shanchu{
+    color: red;
+}
+.bianji{
+    color: #00BFFF;
+}
+.liulan{
+    color: #00BFFF;
+}
+.bottom-cover{
+    width: 150px;
+    height: 100px;
+    margin-top: -75px;
+    margin-left: -150px;
+    border: 1px solid #bdbdbd;
+}
+/*博客单元格*/

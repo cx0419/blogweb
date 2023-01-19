@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.BlogMapper">
+
+    <resultMap id="BlogResultMap" type="com.pojo.Blog">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="description" property="description"/>
+        <result column="first_picture" property="firstPicture"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="appreciation" property="appreciation"/>
+        <result column="views" property="views"/>
+        <result column="collection" property="collection"/>
+        <result column="commentable" property="commentable"/>
+        <result column="comment" property="comment"/>
+        <result column="original" property="original"/>
+        <result column="special_column_id" property="specialColumnId"/>
+        <result column="user_id" property="userId"/>
+        <result column="examine" property="examine"/>
+    </resultMap>
+    <insert id="addBlog" useGeneratedKeys = "true" keyProperty = "id" keyColumn = "id">
+            insert into t_blog(title,content,description,first_picture,create_time,update_time,appreciation,views,collection,comment,commentable,original,special_column_id,user_id,examine) values
+                            (#{title},#{content} ,#{description},#{firstPicture} ,#{createTime} ,#{updateTime},#{appreciation}  ,#{views} ,#{collection},#{comment},#{commentable} ,#{original},#{specialColumnId},#{userId},#{examine})
+    </insert>
+    <update id="updateBlog">
+        update t_blog
+        set `title` = #{title}, content=#{content}, description =#{description}, first_picture=#{firstPicture},create_time =#{createTime},
+            update_time=#{updateTime},appreciation=#{appreciation},views=#{views},comment=#{comment},collection=#{collection},
+            `commentable` = #{commentable}, original=#{original}, special_column_id=#{specialColumnId},user_id =#{userId},examine=#{examine}
+        where id = #{id}
+    </update>
+    <update id="updateBlogPass">
+        update t_blog
+        set examine = #{st}
+        where id = #{id}
+    </update>
+    <delete id="deleteBlogById">
+            delete from t_blog where id = #{id}
+    </delete>
+    <select id="selectBlogByUserIdpage" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select * from t_blog where user_id = #{id} and examine = '已通过'
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="selectBlogByUserId" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select * from t_blog where user_id = #{id} and examine = '已通过'
+    </select>
+    <select id="selectBlogById" resultMap="BlogResultMap">
+        select * from t_blog where id=#{id}
+    </select>
+    <select id="selectBlogsByKey" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select *
+        from t_blog
+        where `examine`='已通过' and (content like concat('%',#{key},'%') or title like concat('%',#{key},'%') or
+              description like concat('%',#{key},'%') or create_time like concat('%',#{key},'%')
+                or update_time like concat('%',#{key},'%'))
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="selectBlogTitleById" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select id,title
+        from t_blog
+        where id=#{id}
+    </select>
+    <select id="selectBlogsNumByKey" resultType="java.lang.Integer">
+        select count(*)
+        from t_blog
+        where content like concat('%',#{key},'%') or title like concat('%',#{key},'%') or
+            description like concat('%',#{key},'%') or create_time like concat('%',#{key},'%')
+           or update_time like concat('%',#{key},'%')
+    </select>
+
+    <select id="selectBlogsByCId" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select *
+        from blogweb.t_blog
+                 join (select * from blogweb.t_blog_column where column_id=#{columnid}) as tc
+                      on t_blog.id = tc.blog_id
+    </select>
+
+    <select id="selectExamineBlogs" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select *
+        from t_blog
+        where examine = '审核中'
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="selectExamineBlogsnum" resultType="java.lang.Integer">
+        select count(*)
+        from t_blog
+        where examine = '审核中'
+    </select>
+    <select id="selectBlogByBIdAndUId" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select *
+        from t_blog
+        where id = #{blogid} and user_id = #{userid}
+    </select>
+    <select id="seletAllBlogByIdIncludeCao" resultType="com.pojo.Blog" resultMap="BlogResultMap">
+        select *
+        from blogweb.t_blog
+        <if test="column != null">
+            join blogweb.t_blog_column as bc
+            on bc.blog_id = t_blog.id and bc.column_id = (select id from blogweb.t_column where name=#{column} and user_id = #{id})
+        </if>
+        <if test="tag != null">
+            join (select blog_id from t_blog_tag join (select id from t_tag where name = #{tag}) as t1 on t1.id = t_blog_tag.tag_id) as b2
+            on b2.blog_id = t_blog.id
+        </if>
+        <where>
+            <if test="nian != null">
+                and DATE_FORMAT(create_time,'%Y') = #{nian}
+            </if>
+            <if test="yue != null">
+                and DATE_FORMAT(create_time,'%m') = #{yue}
+            </if>
+            <if test="draft != null">
+                and examine = '草稿'
+            </if>
+            <if test="examine != null">
+                and examine = '审核中'
+            </if>
+            <if test="key != null">
+                and (content like concat('%',#{key},'%') or title like concat('%',#{key},'%'))
+            </if>
+            <if test="original == '原创'">
+                and (original = true and examine = '已通过')
+            </if>
+            <if test="original == '转载'">
+                and (original = false and examine = '已通过')
+            </if>
+            <if test="id != null">
+                and user_id = #{id}
+            </if>
+        </where>
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>
+    </select>
+    <select id="seletAllBlogNumByIdIncludeCao" resultType="java.lang.Integer">
+        select count(*)
+        from blogweb.t_blog
+        <if test="column != null">
+            join blogweb.t_blog_column as bc
+            on bc.blog_id = t_blog.id and bc.column_id = (select id from blogweb.t_column where name=#{column} and user_id = #{id})
+        </if>
+        <if test="tag != null">
+            join (select blog_id from t_blog_tag join (select id from t_tag where name = #{tag}) as t1 on t1.id = t_blog_tag.tag_id) as b2
+            on b2.blog_id = t_blog.id
+        </if>
+        <where>
+            <if test="nian != null">
+                and DATE_FORMAT(create_time,'%Y') = #{nian}
+            </if>
+            <if test="yue != null">
+                and DATE_FORMAT(create_time,'%m') = #{yue}
+            </if>
+            <if test="draft != null">
+                and examine = '草稿'
+            </if>
+            <if test="examine != null">
+                and examine = '审核中'
+            </if>
+            <if test="key != null">
+                and (content like concat('%',#{key},'%') or title like concat('%',#{key},'%'))
+            </if>
+            <if test="original == '原创'">
+                and (original = true and examine = '已通过')
+            </if>
+            <if test="original == '转载'">
+                and (original = false and examine = '已通过')
+            </if>
+        </where>
+    </select>
+    <select id="selectAllBlogNumByUId" resultType="java.lang.Integer">
+        select count(*) from t_blog where user_id = #{userid} and examine = '已通过'
+    </select>
+    <select id="selectAllBlogToReCommend" resultType="java.lang.Long">
+        select id
+        from blogweb.t_blog
+        where examine = '已通过'
+    </select>
+    <select id="selectBlogsByData" resultType="com.pojo.Blog">
+        select *
+        from blogweb.t_blog
+        <where>
+            <if test="nian != null">
+                and DATE_FORMAT(create_time,'%Y') = #{nian}
+            </if>
+            <if test="yue != null">
+                and DATE_FORMAT(create_time,'%m') = #{yue}
+            </if>
+            <if test="column != null">
+                and and DATE_FORMAT(fix_time,'%Y') = ${column}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

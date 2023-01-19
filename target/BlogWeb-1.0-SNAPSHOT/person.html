@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/headnav.css">
+    <link rel="stylesheet" href="css/Bootstrap.css">
+    <script src="js/Vue.js"></script>
+    <script src="js/loadnav.js"></script>
+    <link rel="stylesheet" href="css/person.css">
+    <link rel="stylesheet" href="css/fenye.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/ajaxfileupload.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/fenye.js"></script>
+</head>
+<body>
+<!-- 导航栏 -->
+<div class="head">
+    <div class="head-lead">
+        <ul>
+            <li class="head-lead-nav"><a href="http://localhost:8080/BlogWeb/index.html">首页</a></li>
+            <li class="head-lead-nav"><a href="">分区</a></li>
+            <li class="head-lead-nav"><a href="">社区</a></li>
+            <li class="head-lead-nav"><a href="">学习</a></li>
+        </ul>
+    </div>
+    <div class="head-search">
+        <input type="search" name="" id="searchsomething" placeholder="搜点什么吧......">
+        <button id="nav-searchbtn" type="button">搜索</button>
+    </div>
+    <div class="head-myself">
+        <ul>
+            <li class="head-myself-nav"><a  id="edit"  href="http://localhost:8080/BlogWeb/edit.html">创作</a></li>
+            <li id="nav-msgbtn" class="head-myself-nav"><a href="">消息</a></li>
+            <li id="nav-collectionbtn" class="head-myself-nav"><a href="">收藏</a></li>
+            <li id="nav-focusbtn" class="head-myself-nav"><a href="">关注</a></li>
+            <li id="nav-myblogbtn" class="head-myself-nav"><a href="">博客</a></li>
+            <li class="head-myself-nav" id="avatarli"><img id="avatar" src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg" alt="">
+                <div class="head-myself-infobolck" id="head-myself-infobolck">
+                    <!-- 头像 名字 -->
+                    <div class="head-myself-infobolck-name"><h2 id="nav-nickname">程序员1</h2><span id="nav-introduction">--</span></div>
+                    <!-- 粉丝展示 -->
+                    <div class="head-myself-infobolck-fans">
+                        <div><h4 id="nav-fansnum">0</h4><h3>粉丝</h3></div>
+                        <div><h4 id="nav-view">0</h4><h3>访问量</h3></div>
+                        <div><h4 id="nav-likenum">0</h4><h3>获赞</h3></div>
+                    </div>
+                    <!-- 导航 -->
+                    <div class="head-myself-infobolck-nav">
+                        <ul>
+                            <li ><a id="personalCenter" href="http://localhost:8080/BlogWeb/personalCenter.html"><span class="iconfont">&#xe643;</span>个人中心</a></li>
+                            <li><a id="AlterPassword" href="http://localhost:8080/BlogWeb/personalCenter.html"><span class="iconfont">&#xe83e;</span>修改密码</a></li>
+                            <li ><a id="createBlog"  href=""><span class="iconfont">&#xe67d;</span>内容管理</a></li>
+                            <li class="exit-login"><a id="exitlogin" href=""><span class="iconfont">&#xe6ba;</span>退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>getnavinfo();</script>
+<div class="content">
+    <div class="content-top">
+        <div class="content-top-top">
+            <div class="content-top-top-left">
+                <div class="content-top-top-left-head">
+                    <img id="avatar01" src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg" alt="">
+                </div>
+                <!--                        名字+简介-->
+                <div class="content-top-top-left-outdiv">
+                    <!--                            名字-->
+                    <div class="left-outdiv-name" id="name">avatar</div>
+                    <!--                            简介-->
+                    <div class="left-outdiv-introd" id="introduction">这个人很懒~暂时还没有个人简介</div>
+                </div>
+            </div>
+            <div class="content-top-top-right">
+                <input id="focusstatus" type="button" class="focusbtn" value="已互关">
+            </div>
+        </div>
+        <div class="content-top-mid">
+            <div class="content-top-mid-unit">
+                <div class="mid-unit-left">性别:</div>
+                <div class="mid-unit-right" id="sex">男</div>
+            </div>
+            <div class="content-top-mid-unit">
+                <div class="mid-unit-left">生日:</div>
+                <div class="mid-unit-right" id="birthday">2021-01-01</div>
+            </div>
+            <div class="content-top-mid-unit">
+                <div class="mid-unit-left">所在地:</div>
+                <div class="mid-unit-right" id="location">湖南</div>
+            </div>
+            <div class="content-top-mid-unit">
+                <div class="mid-unit-left">邮箱:</div>
+                <div class="mid-unit-right" id="email">1231123123@qq.com</div>
+            </div>
+        </div>
+        <div class="content-top-bottom">
+            <div class="content-top-bottom-unit">
+                <div class="content-top-bottom-unit-top">12312</div>
+                <div class="content-top-bottom-unit-bottom">访问数量</div>
+            </div>
+            <div class="content-top-bottom-unit">
+                <div class="content-top-bottom-unit-top">213</div>
+                <div class="content-top-bottom-unit-bottom">粉丝数量</div>
+            </div>
+            <div class="content-top-bottom-unit">
+                <div class="content-top-bottom-unit-top">1188</div>
+                <div class="content-top-bottom-unit-bottom">点赞数量</div>
+            </div>
+            <div class="content-top-bottom-unit">
+                <div class="content-top-bottom-unit-top">12</div>
+                <div class="content-top-bottom-unit-bottom">收藏数量</div>
+            </div>
+        </div>
+    </div>
+    <div class="content-bottom">
+        <div class="content-bottom-left">
+            <div class="content-bottom-left-scolumntitle">ta的专栏</div>
+            <ul id="scolumlist" class="scolumlist">
+                <li class="scolumunit">
+                    <div class="scolumunit-left">
+                        <img src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg" alt="">
+                        <div class="scolumunit-name">数据结构</div>
+                    </div>
+                    <div class="scolumunit-right">
+                        <div class="scolumunit-num">34篇</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="content-bottom-right" class="content-bottom-right">
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function init(){
+        //加载导航栏
+        AxiosPostRequst("http://localhost:8080/BlogWeb/UserServlet?method=getUser",{
+            'account': getCookie("account"),
+        }).then(res => {
+            avatar.src = res.user.avatar;
+        });
+
+        //初始化个人信息栏
+        AxiosPostRequst("http://localhost:8080/BlogWeb/UserServlet?method=getUserById",{
+            'id': GetUrlParam("id"),
+        }).then(res => {
+            let user = res.user;
+            alert(JSON.stringify(user));
+            document.getElementById("avatar01").setAttribute("src",user.avatar===null?"https://profile.csdnimg.cn/3/D/A/1_seventy70":user.avatar);
+            document.getElementById("name").innerHTML = user.name===undefined?"-":user.name;
+            document.getElementById("introduction").innerHTML = user.introduction===undefined?"这个人很懒，暂时还蛮有个性签名~":user.introduction;
+            document.getElementById("sex").innerHTML = user.sex === true ? "男":"女";
+            document.getElementById("birthday").innerHTML = user.birthday===undefined?"-":user.birthday.substr(0,10);
+            document.getElementById("location").innerHTML = user.location===undefined?"-":user.location;
+            document.getElementById("email").innerHTML = user.email===undefined?"-":user.email;
+        });
+
+        //初始化导航栏事件
+        AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=AttentionIsNotEmpty",{
+            id:GetUrlParam("id")
+        }).then((res) => {
+            let status = res.ans;
+            let json = {
+                'bloggerId':GetUrlParam("id"),
+                'fansId':getCookie("id")
+            }
+            document.getElementById("focusstatus").value = status===false?"关注":"已关注";
+            $('#focusstatus').on('click', e => {
+                if (document.getElementById("focusstatus").value === "已关注") {
+                    popSucceedWindows("取关成功！");
+                    AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=cancelAttention", {
+                        "attention": JSON.stringify(json)
+                    }).then(res => {
+                        document.getElementById("focusstatus").value = "关注";
+                    });
+                } else {
+                    popSucceedWindows("关注成功！");
+                    AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=AttentionSomeone", {
+                        "attention": JSON.stringify(json)
+                    }).then(res => {
+                        document.getElementById("focusstatus").value = "已关注";
+                    });
+                }
+            });
+        });
+    }
+    init();
+</script>
+<!--拉取专栏-->
+<script>
+    AxiosPostRequst('http://localhost:8080/BlogWeb/ColumnServlet?method=getAllColumnByUserId',{
+        'userid':GetUrlParam('id')
+    }).then(res=>{
+        let columnAndNums = res.columnAndNums;
+        let msg = res.msg;
+        document.getElementById("scolumlist").innerHTML = "";
+        for(let i = 0 ; i < columnAndNums.length ; i++){
+            let columnAndNum = columnAndNums[i];
+            let num = columnAndNum.num;
+            let column = columnAndNum.column;
+            let columninfobtn = 'columninfobtn'+ column.id;
+            let str =
+                "                    <div class=\"scolumunit-left\">\n" +
+                "                        <img src=\""+column.picture+"\" alt=\"\">\n" +
+                "                        <div id='"+columninfobtn+"' class=\"scolumunit-name\">"+column.name+"</div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"scolumunit-right\">\n" +
+                "                        <div class=\"scolumunit-num\">"+num+"篇"+"</div>\n" +
+                "                    </div>\n";
+            let div = document.createElement("li");
+            div.innerHTML = str;
+            div.classList.add("scolumunit");
+            $('#scolumlist').append(div);
+        }
+    });
+</script>
+<!--拉取博客-->
+<script>
+    function getblogs(numb){
+        AxiosPostRequst('http://localhost:8080/BlogWeb/BlogServlet?method=selectAllBlog',{
+            'userid':GetUrlParam('id'),
+            'pagenum':numb
+        }).then(res=>{
+            let page = res.page;
+            let pageSize = page.pageSize;
+            let pageNum = page.pageNum;
+            let pages = page.pages;
+            let total = page.total;
+            let blogs = page.data;
+            alert(JSON.stringify(blogs));
+            document.getElementById("bloglist").innerHTML = "";
+            for(let i = 0 ;  i< blogs.length ; i++){
+                let blog = blogs[i];
+                let gotoblogpagebtn = 'gotoblogpagebtn' + blog.id;
+                let original = blog.original===true?"原创":"转载";
+                let str =
+                    "                    <div class=\"Articleunit-top\">\n" +
+                    "                        <h3 id='"+gotoblogpagebtn+"' class=\"ArticleTitle\">"+blog.title+"</h3>\n" +
+                    "                        <div class=\"ArticleTime\">"+blog.createTime.substr(0,19)+"</div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"Articleunit-mid\">\n" +
+                    "                        <div class=\"ArticleDraft\">"+original+"</div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"Articleunit-bottom\">\n" +
+                    "                        <div class=\"bottom-outinfo\">\n" +
+                    "                            <div class=\"bottom-info\">\n" +
+                    "                                <div class=\"bottom-info-left\">展现量</div>\n" +
+                    "                                <div class=\"bottom-info-right ArticleViews\">"+blog.views+"</div>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"bottom-info\">\n" +
+                    "                                <div class=\"bottom-info-left\">评论</div>\n" +
+                    "                                <div class=\"bottom-info-right ArticleComment\">"+blog.comment+"</div>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"bottom-info\">\n" +
+                    "                                <div class=\"bottom-info-left\">收藏</div>\n" +
+                    "                                <div class=\"bottom-info-right ArticleCollection\">"+blog.collection+"</div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n";
+                let div =document.createElement('li');
+                div.classList.add('Articleunit');
+                div.innerHTML = str;
+                $('#bloglist').append(div);
+                $('#gotoblogpagebtn').on('click',e=>{
+                    window.open("http://localhost:8080/BlogWeb/blogPage.html?articleid="+blog.id);
+                })
+            }
+        });
+    }
+    //初始化导航栏
+    AxiosPostRequst("http://localhost:8080/BlogWeb/BlogServlet?method=selectAllBlog",{
+        'userid':GetUrlParam('id'),
+        'pagenum':1
+    }).then(res=>{
+        let page = res.page;
+        let pageSize = page.pageSize;
+        let pageNum = page.pageNum;
+        let pages = page.pages;
+        let total = page.total;
+        let blogs = page.data;
+        document.getElementById("content-bottom-right").innerHTML = "            <div id='bloglist' class=\"bloglist\">\n" +
+            "            </div>\n" +
+            "            <div class=\"page_1\"></div>";
+        let obj_3 = {
+            obj_box: '.page_1',//翻页容器
+            total_item: total,//条目总数
+            per_num: pageSize,//每页条目数
+            current_page: pageNum//当前页
+        };
+        page_ctrl(obj_3,getblogs);
+    });
+
+</script>
+</body>
+</html>

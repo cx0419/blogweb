@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yremp/editormd/css/editormd.preview.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yremp/editormd/css/editormd.css" />
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="editor.md/editormd.js"></script>
+    <script src="editor.md/lib/marked.min.js"></script>
+    <script src="editor.md/lib/prettify.min.js"></script>
+    <script src="editor.md/lib/raphael.min.js"></script>
+    <script src="editor.md/lib/underscore.min.js"></script>
+    <script src="editor.md/lib/sequence-diagram.min.js"></script>
+    <script src="editor.md/lib/flowchart.min.js"></script>
+    <script src="editor.md/lib/jquery.flowchart.min.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/gh/yremp/editormd@1.0.1/jquery.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/gh/yremp/editormd/editormd.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/gh/yremp/editormd/lib/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/yremp/editormd/lib/prettify.min.js"></script>
+    <link rel="stylesheet" href="css/headnav.css">
+    <link rel="stylesheet" href="css/blogPage.css">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/Bootstrap.css">
+    <link rel="stylesheet" href="css/fenye.css">
+    <script src="js/loadnav.js"></script>
+    <script src="js/axios-0.18.0.min.js"></script>
+    <script src="js/axiosUtil.js" type="text/javascript"></script>
+    <script src="js/fenye.js"></script>
+</head>
+<body>
+<!--评论区-->
+<div style="display: none" id="quanping" class="quanping">
+    <div class="rightmanage">
+        <div class="rightmanage-top">评论列表</div>
+        <div class="rightmanage-mid">
+            <div class="fuinput">
+                <div class="fucomment-top-left" ><img src="https://pic2.zhimg.com/v2-54893828153341f05b9f24025369af44_1440w.jpg?source=172ae18b" alt=""></div>
+                <textarea name="" id="addtopcommentinput" cols="30" rows="10" placeholder='欢迎高质量评论,低质的评论将会被折叠'></textarea>
+                <div id="addtopcommentbtn"  class="fureplybtn">发表评论</div>
+            </div>
+        </div>
+        <div class="rightmanage-bottom">
+            <div id="fucommentlist" class="fucommentlist">
+                <div class="fucommentunit">
+                    <div class="fucomment-top">
+                        <div class="fucomment-top-left">
+                            <img src="https://pic2.zhimg.com/v2-54893828153341f05b9f24025369af44_1440w.jpg?source=172ae18b" alt="">
+                        </div>
+                        <div class="fucomment-top-right">
+                            <div class="top-right-name">奈川_m0NESY</div>
+                            <div>
+                                <div class="top-right-content">评论1</div>
+                            </div>
+                            <div class="top-right-time">2022-07-24 17:50<div class="top-righ-reply" onclick="hiddenClassElementShowOneOfThem('ziinput','1111','flex')">回复</div></div>
+                        </div>
+                    </div>
+                    <div class="ziinput1 togetherzi" id="1111">
+                        <div class="fucomment-top-left" ><img src="https://pic2.zhimg.com/v2-54893828153341f05b9f24025369af44_1440w.jpg?source=172ae18b" alt=""></div>
+                        <textarea name="" cols="30" rows="10"></textarea>
+                        <div class="fureplybtn">发表评论</div>
+                    </div>
+                    <div class="fucomment-bottom">
+                        <div id="子列表名字" class="zicommentlist">
+                            <div class="zicommentunit">
+                                <div class="zicomment-top">
+                                    <div class="zicomment-top-left">
+                                        <img src="https://pic2.zhimg.com/v2-54893828153341f05b9f24025369af44_1440w.jpg?source=172ae18b" alt="">
+                                    </div>
+                                    <div class="zicomment-top-right">
+                                        <div style="display: flex" class="zitop-right-name">奈川_m0NESY <div style="color: black;font-weight: 550">回复</div>奈川_m0NESY</div>
+                                        <div>
+                                            <div class="zitop-right-content">评论2</div>
+                                        </div>
+                                        <div class="zitop-right-time">2022-07-24 17:50<div class="zitop-righ-reply">回复</div></div>
+                                    </div>
+                                </div>
+                                <div class="ziinput2 togetherzi" id="">
+                                    <div class="fucomment-top-left" ><img src="https://pic2.zhimg.com/v2-54893828153341f05b9f24025369af44_1440w.jpg?source=172ae18b" alt=""></div>
+                                    <textarea style="width: 100px;" name="" cols="30" rows="10"></textarea>
+                                    <div class="fureplybtn">发表评论</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--fucommentlist-->
+            <div style="width: 700px; margin-left: -50px">
+                <div style="transform:scale(0.7);" class="page_2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--收藏区-->
+<div  class="collection-quanping">
+    <div class="collection">
+        <div class="collection-top">添加收藏</div>
+        <div id="collection-mid" class="collection-mid">
+            <div id="newcollectionbtn" style="display: none" class="newcollectionbtn"><div class="iconfont"></div><div id="collection-mid-font" class="collection-mid-font">新建收藏夹</div></div>
+            <div id="collection-input" class="collection-input"><input id="collectionname" type="text"> <div id="addcollectionbtn" class="addcollectionbtn">新建</div> <div class="closeinput">关闭</div></div>
+        </div>
+        <div class="collection-bottom">
+            <div id="collection-bottom-items" class="collection-bottom-items">
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+                <div class="collection-bottom-item">
+                    <div class="collection-item-name">默认收藏夹</div>
+                    <div class="collection-item-btn">收藏</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /**
+     *新建专栏窗口
+     */
+    let quanpingstatus = "新建";
+    const rightmanage = document.getElementsByClassName('rightmanage')[0];
+    const quanping = document.getElementsByClassName('quanping')[0];
+    const collectionoutinput = document.getElementsByClassName('collection-input')[0];
+    const collectioninnerinput = document.getElementById('collectionname');
+    const collectionmidfont = document.getElementsByClassName('collection-mid-font')[0];
+    const collectionquanping = document.getElementsByClassName('collection-quanping')[0];
+    const collectiondiv = document.getElementsByClassName('collection')[0];
+    const closecollectioninput = document.getElementsByClassName("closeinput")[0];
+    //打开收藏区
+    function opencollection(){
+        let $c = $(collectionquanping);
+        $c.css("display","block");
+    }
+    //打开评论区
+    function opennewcolumn(){
+        $("#quanping").css("display","flex");
+    }
+    rightmanage.addEventListener('click', event => {
+        event.stopPropagation();  // chromium内核
+        window.event.cancelBubble = true;  // IE内核
+    })
+
+    quanping.addEventListener('click', event => {
+        hiddenClassElementShowOneOfThem('togetherzi',null,'flex');
+        console.log('success');
+        $("#quanping").css("display","none");
+    })
+    collectiondiv.addEventListener('click', event => {
+        event.stopPropagation();  // chromium内核
+        window.event.cancelBubble = true;  // IE内核
+    })
+    collectionquanping.addEventListener('click', event => {
+        hiddenClassElementShowOneOfThem('togetherzi',null,'flex');
+        console.log('success');
+        let $c = $(collectionquanping);
+        $c.css("display","none");
+    })
+    document.onclick = function (event)
+    {
+        var e = event || window.event;
+        var elem = e.srcElement||e.target;
+
+        while(elem)
+        {
+            if(elem.id === "collection-mid")
+            {
+                return;
+            }
+            elem = elem.parentNode;
+        }
+        //隐藏div的方法
+        $("#collection-input").css("display","none");
+        $("#newcollectionbtn").css("display",'inline-block');
+    }
+    // closecollectioninput.addEventListener('click', event => {
+    //     console.log('success');
+    //     $("#collection-input").css("display","none");
+    //     $("#newcollectionbtn").css("display",'block');
+    // })
+    $('#collection-mid-font').on('click', e => {
+        console.log("asd");
+        $("#collection-input").css("display","inline-block");
+        $("#newcollectionbtn").css("display",'none');
+    });
+</script>
+<!-- 导航栏 -->
+<div class="head">
+    <div class="head-lead">
+        <ul>
+            <li class="head-lead-nav"><a href="http://localhost:8080/BlogWeb/index.html">首页</a></li>
+            <li class="head-lead-nav"><a href="">分区</a></li>
+            <li class="head-lead-nav"><a href="">社区</a></li>
+            <li class="head-lead-nav"><a href="">学习</a></li>
+        </ul>
+    </div>
+    <div class="head-search">
+        <input type="search" name="" id="searchsomething" placeholder="搜点什么吧......">
+        <button id="nav-searchbtn" type="button">搜索</button>
+    </div>
+    <div class="head-myself">
+        <ul>
+            <li class="head-myself-nav"><a  id="edit"  href="http://localhost:8080/BlogWeb/edit.html">创作</a></li>
+            <li id="nav-msgbtn" class="head-myself-nav"><a href="">消息</a></li>
+            <li id="nav-collectionbtn" class="head-myself-nav"><a href="">收藏</a></li>
+            <li id="nav-focusbtn" class="head-myself-nav"><a href="">关注</a></li>
+            <li id="nav-myblogbtn" class="head-myself-nav"><a href="">博客</a></li>
+            <li class="head-myself-nav" id="avatarli"><img id="avatar" src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg" alt="">
+                <div class="head-myself-infobolck" id="head-myself-infobolck">
+                    <!-- 头像 名字 -->
+                    <div class="head-myself-infobolck-name"><h2 id="nav-nickname">程序员1</h2><span id="nav-introduction">--</span></div>
+                    <!-- 粉丝展示 -->
+                    <div class="head-myself-infobolck-fans">
+                        <div><h4 id="nav-fansnum">0</h4><h3>粉丝</h3></div>
+                        <div><h4 id="nav-view">0</h4><h3>访问量</h3></div>
+                        <div><h4 id="nav-likenum">0</h4><h3>获赞</h3></div>
+                    </div>
+                    <!-- 导航 -->
+                    <div class="head-myself-infobolck-nav">
+                        <ul>
+                            <li ><a id="personalCenter" href="http://localhost:8080/BlogWeb/personalCenter.html"><span class="iconfont">&#xe643;</span>个人中心</a></li>
+                            <li><a id="AlterPassword" href="http://localhost:8080/BlogWeb/personalCenter.html"><span class="iconfont">&#xe83e;</span>修改密码</a></li>
+                            <li ><a id="createBlog"  href=""><span class="iconfont">&#xe67d;</span>内容管理</a></li>
+                            <li class="exit-login"><a id="exitlogin" href=""><span class="iconfont">&#xe6ba;</span>退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    getnavinfo();
+    var Myuser;
+</script>
+<!-- 主界面 -->
+<div class="main">
+
+    <div class="main-left">
+<!--        标题-->
+        <div id="blogtitle" class="main-left-title">JavaSE总结</div>
+<!--        发布时间+阅读量+文章标签-->
+        <div class="main-left-info">
+            <div class="main-left-info-top">
+                <div class="top-content-out"><div id="name" class="content-in">浓茶</div></div>
+                <div class="top-content-out"> <div id="time" class="content-in">2021-11-11 20:12:34</div></div>
+                <div class="top-content-out"><div id="view" class="iconfont content-in">&#xe69b;1419</div></div>
+            </div>
+            <div class="main-left-info-bottom">
+                <div style="margin-right: 10px" class="bottom-content-out">文章标签:</div>
+                <ul id="taglist" class="bottom-content-out taglist">
+                    <li class="tag">编辑器</li>
+                    <li class="tag">前端</li>
+                    <li class="tag">css</li>
+                    <li class="tag">MarkDown</li>
+                    <li class="tag">editor.md</li>
+                </ul>
+            </div>
+        </div>
+<!--        专栏区域-->
+        <div id="scolumn">
+            <!--        专栏介绍-->
+            <div class="scolumn">
+                <div class="scolumn-left">
+                    <img class="scolumn-content scolumn-avatar" src="https://ts1.cn.mm.bing.net/th?id=OIP-C.igLIyw485QInl8GpgIrkiQAAAA&w=100&h=106&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="">
+                    <div class="scolumn-content scolumname">页面插件</div>
+                    <div class="scolumn-content">已收录该内容</div>
+                </div>
+                <div class="scolumn-right">
+                    <!--                订阅-->
+                    <div class="scolumn-content"><div class="scolumn-right-left">20</div><div class="scolumn-right-right" >订阅</div></div>
+                    <!--                文章数量-->
+                    <div class="scolumn-content"><div class="scolumn-right-left">12</div><div class="scolumn-right-right">篇文章</div></div>
+                    <!--                订阅该专栏-->
+                    <div class="scolumn-content subscribebtn" id="subscribebtn">订阅专栏</div>
+                </div>
+            </div>
+        </div>
+
+<!--        MarkDown区域-->
+        <div id="testEditorMdview">
+            <textarea id="appendTest" style="display:none;"></textarea>
+        </div>
+        <div class="clear">
+<!--            <div class="clear-left">看完了觉得不错就给博客点个赞吧!</div>-->
+            <div class="clear-right">
+<!--                点赞-->
+                <div id="dianzanbtn" style="font-size: 25px" class="clear-right-unit iconfont">&#xec8c;</div>
+                <div id="likenumshow" class="unit-num">0</div>
+<!--                收藏-->
+                <div onclick="opencollection()" style="font-size: 25px" class="clear-right-unit iconfont">&#xe8c7;</div>
+                <div id="collecionbtn" class="unit-num">0</div>
+<!--                评论-->
+                <div onclick="opennewcolumn()" style="font-size: 25px" class="clear-right-unit iconfont">&#xec3b;</div>
+                <div id="commentbtn" class="unit-num">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="main-right">
+        <div class="main-right-info">
+            <div class="info-avatar">
+                <img id="avatar02" class="info-avatar-left" src="https://ts1.cn.mm.bing.net/th?id=OIP-C.igLIyw485QInl8GpgIrkiQAAAA&w=100&h=106&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="">
+                <div class="info-avatar-right">
+                    <div id="name01" class="avatar-right-top">程序员</div>
+                    <div id="age" class="avatar-right-bottom">10</div>
+                </div>
+            </div>
+            <div class="info-data">
+                <div class="dataunit originaldata">
+                    <div id="originaldata" class="dataunit-top">
+                        0
+                    </div>
+                    <div class="dataunit-bottom">
+                    原创
+                    </div>
+                </div>
+                <div class="dataunit viewdata">
+                    <div id="viewdata" class="dataunit-top">
+                        0
+                    </div>
+                    <div class="dataunit-bottom">
+                        访问量
+                    </div>
+                </div>
+                <div class="dataunit fansdata">
+                    <div id="fansdata" class="dataunit-top">
+                    0
+                    </div>
+                    <div class="dataunit-bottom">
+                        粉丝
+                    </div>
+                </div>
+            </div>
+            <div class="info-data">
+                <div class="dataunit likedata">
+                    <div  id="likedata" class="dataunit-top">
+                        0
+                    </div>
+                    <div class="dataunit-bottom">
+                        点赞
+                    </div>
+                </div>
+                <div class="dataunit collectionata">
+                    <div id="collectiondata" class="dataunit-top">
+                        0
+                    </div>
+                    <div class="dataunit-bottom">
+                        收藏
+                    </div>
+                </div>
+                <div class="dataunit commentdata">
+                    <div  id="commentdata" class="dataunit-top">
+                        0
+                    </div>
+                    <div class="dataunit-bottom">
+                        评论
+                    </div>
+                </div>
+            </div>
+            <div class="info-focus">
+                <input id="focusstatus" type="button" class="focusbtn" value="已互关">
+            </div>
+        </div>
+        <div class="main-right-music">
+
+        </div>
+        <div class="main-right-like">
+
+        </div>
+    </div>
+</div>
+<!--获取文章-->
+<script type="text/javascript">
+    /**
+     * 获取url当中的key->value
+     * @param paraName
+     * @returns {string}
+     * @constructor
+     */
+    function GetUrlParam(paraName) {
+        var url = window.location.toString();
+        var arrObj = url.split("?");
+
+        if (arrObj.length > 1) {
+            var arrPara = arrObj[1].split("&");
+            var arr;
+            for (var i = 0; i < arrPara.length; i++) {
+                arr = arrPara[i].split("=");
+
+                if (arr != null && arr[0] == paraName) {
+                    return arr[1];
+                }
+            }
+            return "";
+        }
+        else {
+            return "";
+        }
+    }
+    function init1(){
+        //获取文章
+        let MarkDownContent = document.getElementById("MarkDownContent");
+        let articleid = GetUrlParam("articleid");
+        if(articleid!=null){
+            AxiosPostRequst("http://localhost:8080/BlogWeb/BlogServlet?method=selectBlog",{
+                "id":GetUrlParam("articleid")
+            }).then(res => {
+                let blog = res.blog;
+                if(blog.examine!=="审核中"&&getCookie("adminid")!=null && !getCookie("adminid")==="8"){
+                   document.getElementsByTagName('body')[0].innerHTML = "请等待审核完毕再来查看此文章";
+                    return;
+                }
+                let userExtend = res.userExtend;
+                let user = res.user;
+                Myuser = user;
+                let columnAndNums = res.columnAndNums;
+                let tags =res.tags;
+                let msg = res.msg;
+                //文章内容
+                document.getElementById("blogtitle").innerHTML = blog.title;
+                document.getElementById("time").innerHTML = blog.createTime;
+                document.getElementById("view").innerHTML = "&#xe69b; "+blog.views;//前面的小图标不能丢
+                alert("boke:"+blog.content)
+                alterArticleTypeToHTML(blog.content);
+                //作者信息
+                document.getElementById("avatar02").src = user.avatar;
+                document.getElementById("name").innerHTML = user.name;
+                document.getElementById("name01").innerHTML = user.name;
+                //出生时间 毫秒
+                var birthDayTime = new Date(user.birthday.substr(0,10)).getTime();
+                //当前时间 毫秒
+                var nowTime = new Date().getTime();
+                //一年毫秒数(365 * 86400000 = 31536000000)
+                document.getElementById("age").innerText = Math.ceil((nowTime-birthDayTime)/31536000000);
+                document.getElementById("originaldata").innerHTML = userExtend.original;
+                document.getElementById("likedata").innerHTML = userExtend.like;
+                document.getElementById("collectiondata").innerHTML = userExtend.collection;
+                document.getElementById("fansdata").innerHTML = userExtend.like;
+                document.getElementById("viewdata").innerHTML = userExtend.view;
+                document.getElementById("commentdata").innerHTML = userExtend.comment;
+                //标签
+                document.getElementById("taglist").innerHTML = "";
+                for(let i = 0 ; i < tags.length ; i++){
+                    let str = tags[i].name;
+                    let div = document.createElement('li');
+                    div.classList.add("tag");
+                    div.innerHTML = str;
+                    $('#taglist').append(div);
+                }
+                //专栏
+                for(let i = 0 ; i < columnAndNums.length ; i++){
+                    let column = columnAndNums[i].column;
+                    let num = columnAndNums[i].num;
+                    let subscribebtn = "subscribebtn"+column.id.toString();
+                    let str = "                <div class=\"scolumn-left\">\n" +
+                        "                    <img class=\"scolumn-content scolumn-avatar\" src=\""+column.picture+"\" alt=\"\">\n" +
+                        "                    <div class=\"scolumn-content scolumname\">"+column.name+"</div>\n" +
+                        "                    <div class=\"scolumn-content\">已收录该内容</div>\n" +
+                        "                </div>\n" +
+                        "                <div class=\"scolumn-right\">\n" +
+                        "                    <!--                订阅-->\n" +
+                        "                    <div class=\"scolumn-content\"><div class=\"scolumn-right-left\">0</div><div class=\"scolumn-right-right\" >订阅</div></div>\n" +
+                        "                    <!--                文章数量-->\n" +
+                        "                    <div class=\"scolumn-content\"><div class=\"scolumn-right-left\">"+num+"</div><div class=\"scolumn-right-right\">篇文章</div></div>\n" +
+                        "                    <!--                订阅该专栏-->\n" +
+                        "                    <div class=\"scolumn-content subscribebtn\" id=\""+subscribebtn+"\">订阅专栏</div>\n" +
+                        "                </div>"
+                    let div = document.createElement('div');
+                    div.classList.add("scolumn");
+                    div.innerHTML = str;
+                    $('#scolumn').append(div);
+
+                    //添加订阅事件
+                    $('#subscribebtn').on('click', e => {
+
+                    });
+                }
+                //
+
+                //初始化导航栏事件
+                if(getCookie("id")!=null){//如果登录了
+                    AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=AttentionIsNotEmpty",{
+                        id:blog.userId
+                    }).then((res) => {
+                        let status = res.ans;
+                        let json = {
+                            'bloggerId':blog.userId,
+                            'fansId':getCookie("id")
+                        }
+                        document.getElementById("focusstatus").value = status===false?"关注":"已关注";
+                        $('#focusstatus').on('click', e => {
+                            if (document.getElementById("focusstatus").value === "已关注") {
+                                popSucceedWindows("取关成功！");
+                                AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=cancelAttention", {
+                                    "attention": JSON.stringify(json)
+                                }).then(res => {
+                                    document.getElementById("focusstatus").value = "关注";
+                                });
+                            } else {
+                                popSucceedWindows("关注成功！");
+                                AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=AttentionSomeone", {
+                                    "attention": JSON.stringify(json)
+                                }).then(res => {
+                                    document.getElementById("focusstatus").value = "已关注";
+                                });
+                            }
+                        });
+                    });
+                }else{
+                    //没有登录
+                }
+            });
+        }
+    }
+    init1();
+</script>
+<!--md-->
+<script>
+    //将md文档转换成 html文档
+    function alterArticleTypeToHTML(content){
+        //先对容器初始化，在需要展示的容器中创建textarea隐藏标签，
+        $("#testEditorMdview").html('<textarea id="appendTest" style="display:none;"></textarea>');
+        $("#appendTest").val(content);//将需要转换的内容加到转换后展示容器的textarea隐藏标签中
+        //转换开始,第一个参数是上面的div的id
+        editormd.markdownToHTML("testEditorMdview", {
+            htmlDecode: "style,script,iframe", //可以过滤标签解码
+            emoji: true,
+            taskList:true,
+            tex: true,               // 默认不解析
+            flowChart:true,         // 默认不解析
+            sequenceDiagram:true,  // 默认不解析
+        });
+    }
+</script>
+<!--获取评论-->
+<script>
+    //添加顶级评论的按钮
+    $('#'+"addtopcommentbtn").on('click', e => {
+        //内容
+        let content = document.getElementById("addtopcommentinput").value;
+        //属于哪一个博客
+        let blogid = GetUrlParam("articleid");
+        AxiosPostRequst("http://localhost:8080/BlogWeb/CommentServlet?method=ReplyComment",{
+            'content':content,
+            'object':0,
+            'topcommentid':0,
+            'blogid':blogid
+        }).then(res=> {
+            console.log(res.msg);
+            document.getElementById("addtopcommentinput").value = "";
+            //在这里不需要加载任事情 底下的初始化分页栏做了处理
+            getComment(1);
+        });
+    });
+    function getComment(num){
+        AxiosPostRequst("http://localhost:8080/BlogWeb/CommentServlet?method=selectCommentByBlogId",{
+            'pagenum':num,
+            'id':GetUrlParam("articleid")
+        }).then(res=>{
+            document.getElementById("fucommentlist").innerHTML = "";
+            let page = res.page;
+            let topComments = page.data;
+            for(let i = 0 ; i < topComments.length ; i++){
+                let topCommentAry = topComments[i];
+                let topUser = topCommentAry.user;
+                let topComment = topCommentAry.comment;
+                let sonComments = topCommentAry.sonComments;
+                //以下为创建按钮:
+                //为input区域显示而创造id
+                let topshowinput = "sonshowinput" + topComment.id;
+                //为顶级父评论创造textarea
+                let toptextarea  = "toptextarea" + topComment.id;
+                //为发表评论按钮创造id
+                let toppublish = "publish" + topComment.id;
+                //为头像创造点击事件
+                let avatarbtn = 'avatarbtn' + topComment.id;
+                //为子列表创造id
+                let sonlist = "sonlist" + topComment.id;
+                //为父级回复创造id
+                let topreplybtn = "topreplybtn" + topComment.id;
+                let str1 = "                    <div class=\"fucomment-top\">\n" +
+                    "                        <div class=\"fucomment-top-left\">\n" +
+                    "                            <img id='"+avatarbtn+"' src=\""+topUser.avatar+"\" alt=\"\">\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"fucomment-top-right\">\n" +
+                    "                            <div class=\"top-right-name\">"+topUser.name+"</div>\n" +
+                    "                            <div>\n" +
+                    "                                <div class=\"top-right-content\">"+topComment.content+"</div>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"top-right-time\">"+topComment.createTime.substr(0,16)+"<div class=\"zitop-righ-reply\" id='"+topreplybtn+"'>回复</div></div>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"ziinput1 togetherzi\" id=\""+topshowinput+"\">\n" +
+                    "                        <div class=\"fucomment-top-left\" ><img src=\""+Myuser.avatar+"\" alt=\"\"></div>\n" +
+                    "                        <textarea id='"+toptextarea+"' name=\"\" cols=\"30\" rows=\"10\"></textarea>\n" +
+                    "                        <div id='"+toppublish+"' class=\"zireplybtn\">回复评论</div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"fucomment-bottom\">\n" +
+                    "                        <div id=\""+sonlist+"\" class=\"zicommentlist\">\n" +
+                    "                        </div>\n" +
+                    "                    </div>";
+                let div = document.createElement("div");
+                div.innerHTML = str1;
+                div.classList.add("commentunit");
+                $('#fucommentlist').append(div);
+                //父级评论回复评论事件
+                $('#'+toppublish).on('click', e => {
+                    //内容
+                    let content = document.getElementById(toptextarea).value;
+                    //回复的评论
+                    let object = topComment.id;
+                    //顶级评论id
+                    let topcommentid = topComment.id;
+                    //属于哪一个博客
+                    let blogid = GetUrlParam("articleid");
+                    AxiosPostRequst("http://localhost:8080/BlogWeb/CommentServlet?method=ReplyComment",{
+                        'content':content,
+                        'object':object,
+                        'topcommentid':topcommentid,
+                        'blogid':blogid
+                    }).then(res=> {
+                        getComment(1);
+                        console.log(res.msg);
+                    });
+                });
+                //头像点击事件
+                $('#'+avatarbtn).on('click', e => {
+                    window.open("http://localhost:8080/BlogWeb/person.html?id="+topUser.id);
+                });
+                //为回复按钮设置函数事件
+                $('#'+topreplybtn).on('click', e => {
+                    document.getElementById(toptextarea).setAttribute("placeholder","回复:"+topUser.name);
+                    hiddenClassElementShowOneOfThem('togetherzi',topshowinput,'flex');
+                });
+                for(let j = 0 ;  j < sonComments.length ; j++){
+                    let sonCommentAry = sonComments[j];
+                    let sonComment = sonCommentAry.comment;
+                    //次评论发布者的user对象
+                    let sonUser = sonCommentAry.user;
+                    //回复的评论的发布者的user对象
+                    let sonUserParent = sonCommentAry.parentUser;
+                    //以下为创建按钮
+                    //为input区域显示而创造id
+                    let sonshowinput = "sonshowinput" + sonComment.id;
+                    //为子评论创造textarea的id
+                    let sontextarea  = "sontextarea" + sonComment.id;
+                    //为发表评论按钮创造id
+                    let sonpublish = "sonpublish" + sonComment.id;
+                    let sonreplybtn = "sonreplybtn" +sonComment.id;
+                    //如果此时的顶级评论和父级评论一致,则说明可以将 某某 回复 某某改一下.因为他是直接回复顶级评论的.
+                    let replymid = "replymid" + sonComment.id;
+                    $("#"+replymid).css("display",'none');
+                    let str2 = "                                <div class=\"zicomment-top\">\n" +
+                        "                                    <div class=\"zicomment-top-left\">\n" +
+                        "                                        <img src=\""+sonUser.avatar+"\" alt=\"\">\n" +
+                        "                                    </div>\n" +
+                        "                                    <div class=\"zicomment-top-right\">\n" +
+                        "                                        <div style=\"display: flex\" class=\"zitop-right-name\">"+sonUser.name+" <div id='"+replymid+"' style=\"color: black;font-weight: 550\">回复</div>"+sonUserParent.name+"</div>\n" +
+                        "                                        <div>\n" +
+                        "                                            <div class=\"zitop-right-content\">"+sonComment.content+"</div>\n" +
+                        "                                        </div>\n" +
+                        "                                        <div class=\"zitop-right-time\">"+sonComment.createTime.substr(0,16)+"<div id='"+sonreplybtn+"' class=\"zitop-righ-reply\" >回复</div></div>\n" +
+                        "                                    </div>\n" +
+                        "                                </div>\n" +
+                        "                                <div class=\"ziinput2 togetherzi\" id=\""+sonshowinput+"\">\n" +
+                        "                                    <div class=\"fucomment-top-left\" ><img src=\"https://pic2.zhimg.com/v2-54893828153341f05b9f24025369af44_1440w.jpg?source=172ae18b\" alt=\"\"></div>\n" +
+                        "                                    <textarea id='"+sontextarea+"' style=\"width: 100px;\" name=\"\" cols=\"30\" rows=\"10\"></textarea>\n" +
+                        "                                    <div id='"+sonpublish+"' class=\"zireplybtn\">发表评论</div>\n" +
+                        "                                </div>";
+                    let div = document.createElement("div");
+                    div.innerHTML = str2;
+                    div.classList.add("zicommentunit");
+                    //给顶级评论增加子子评论
+                    $('#'+sonlist).append(div);
+                    //子级回复评论事件
+                    $('#'+sonpublish).on('click', e => {
+                        //内容
+                        let content = document.getElementById(sontextarea).value;
+                        //回复的评论
+                        let object = sonComment.id;
+                        //顶级评论id
+                        let topcommentid = topComment.id;
+                        //属于哪一个博客
+                        let blogid = GetUrlParam("articleid");
+                        AxiosPostRequst("http://localhost:8080/BlogWeb/CommentServlet?method=ReplyComment",{
+                            'content':content,
+                            'object':object,
+                            'topcommentid':topcommentid,
+                            'blogid':blogid
+                        }).then(res=> {
+                            console.log(res.msg);
+                            let comment = res.comment;
+                            getComment(1);
+                        });
+                    });
+                    //为回复按钮设置函数事件
+                    $('#'+sonreplybtn).on('click', e => {
+                        document.getElementById(sontextarea).setAttribute("placeholder","回复:"+sonUser.name)
+                        hiddenClassElementShowOneOfThem('togetherzi',sonshowinput,'flex');
+                    });
+                }
+                hiddenClassElementShowOneOfThem('togetherzi',null,'flex');
+            }
+        });
+    }
+    //初始化页数
+    AxiosPostRequst("http://localhost:8080/BlogWeb/CommentServlet?method=selectCommentByBlogId", {
+        'id': GetUrlParam("articleid"),
+        'pagenum': 1
+    }).then(res => {
+        hiddenClassElementShowOneOfThem('togetherzi',null,'flex');
+        let page = res.page;
+        let pageSize = page.pageSize;
+        let pageNum = page.pageNum;
+        let pages = page.pages;
+        let total = page.total;
+        let blogs = page.data;
+        let obj_2 = {
+            obj_box: '.page_2',//翻页容器
+            total_item: total,//条目总数
+            per_num: 10,//每页条目数
+            current_page: pageNum//当前页
+        };
+        page_ctrl(obj_2, getComment);
+    });
+
+
+</script>
+<!--收藏夹-->
+<script>
+    //添加一个收藏夹事件
+    $("#addcollectionbtn").on('click',e=>{
+        AxiosPostRequst("http://localhost:8080/BlogWeb/CollectionServlet?method=addCollection",{
+            'collectionname':document.getElementById('collectionname').value
+        }).then(res => {
+            //添加成功以后刷新收藏夹列表,重新拉取一次收藏夹列表
+            console.log(res.msg);
+            let msg = res.msg;
+            if(msg==="增加收藏栏成功"){
+                popSucceedWindows("添加收藏夹成功");
+                getCollectionitems();
+            }else{
+                popErrorWindows("已经存在该收藏夹,请勿重复添加!");
+            }
+        });
+    })
+    //获取收藏夹列表
+    function getCollectionitems(){
+        AxiosPostRequst("http://localhost:8080/BlogWeb/CollectionServlet?method=selectCollectionsAndStateByblogId",{
+            "blogid":GetUrlParam('articleid')
+        }).then(res => {
+            let collectionForBlogs = res.collectionForBlogs;
+            document.getElementById("collection-bottom-items").innerHTML = "";
+            for(let i = 0 ; i< collectionForBlogs.length ; i++){
+                let collectionForBlog = collectionForBlogs[i];
+                let collection = collectionForBlog.collection;
+                let status = collectionForBlog.status;
+                let collectonnamebtn = 'collectonnamebtn'+collection.id;
+                let collectionbtn = 'collectionbtn' + collection.id;
+                status = status===true?'已收藏':'收藏';
+                let str = "                   <div id=\""+collectonnamebtn+"\" class=\"collection-item-name\">"+collection.name+"</div>\n" +
+                    "                    <div id=\""+collectionbtn+"\"  class=\"collection-item-btn collecionactive\">"+status+"</div>"
+                let div =document.createElement('div');
+                div.innerHTML = str;
+                div.classList.add('collection-bottom-item');
+                $('#collection-bottom-items').append(div);
+                //给名字添加点击事件跳转到内容管理页面
+                $('#' + collectonnamebtn).on('click', e => {
+                    AxiosPostRequst("http://localhost:8080/BlogWeb/", {
+                        'id': user.id
+                    }).then(res => {
+                        console.log(res.msg);
+                    });
+                });
+                //给收藏该文章添加事件
+                $('#' + collectionbtn).on('click', e => {
+                    if(document.getElementById(collectionbtn).innerHTML==='收藏'){
+                        AxiosPostRequst("http://localhost:8080/BlogWeb/CollectionServlet?method=addBlogToCollection", {
+                            'blogid': GetUrlParam('articleid'),
+                            'collectionid':collection.id,
+                        }).then(res => {
+                            popSucceedWindows("收藏成功!");
+                            document.getElementById(collectionbtn).innerHTML = '已收藏';
+                        });
+                    }else{
+                        AxiosPostRequst("http://localhost:8080/BlogWeb/CollectionServlet?method=cancelCollection", {
+                            'blogid': GetUrlParam('articleid'),
+                            'collectionid':collection.id,
+                        }).then(res => {
+                            popSucceedWindows("取消收藏成功!");
+                            document.getElementById(collectionbtn).innerHTML = '收藏';
+                        });
+                    }
+                });
+            }
+        })
+    }
+    getCollectionitems();
+</script>
+<!--点赞-->
+<script>
+    let dianzannum = 0;
+    //获取到当前登陆者是否给这篇文章点赞过
+    AxiosPostRequst("http://localhost:8080/BlogWeb/LikeServlet?method=CheckUserHaveLikeForBlog", {
+        'blogid': GetUrlParam("articleid")
+    }).then(res => {
+        let likest = res.likest;
+        console.log(likest);
+        if(likest){
+            $('#dianzanbtn').css('color','rgb(252, 85, 49)');
+        }else{
+            $('#dianzanbtn').css('color','rgb(137, 137, 137)');
+        }
+    });
+
+    //获取到点赞数量
+    AxiosPostRequst("http://localhost:8080/BlogWeb/LikeServlet?method=getLikeNum", {
+        'blogid': GetUrlParam("articleid")
+    }).then(res => {
+        let num = res.likenum;
+        console.log("num:"+num);
+        dianzannum = num;
+        document.getElementById("likenumshow").innerHTML = (dianzannum).toString();
+    });
+
+    $('#dianzanbtn').on('click', e => {
+        //灰色的按钮点击以后可以点赞
+        if($('#dianzanbtn').css('color')==='rgb(137, 137, 137)'){
+            $('#dianzanbtn').css('color','rgb(252, 85, 49)');
+            AxiosPostRequst("http://localhost:8080/BlogWeb/LikeServlet?method=likeBlog", {
+                'blogid': GetUrlParam("articleid")
+            }).then(res => {
+                console.log(res.msg);
+                dianzannum++;
+                document.getElementById("likenumshow").innerHTML = (dianzannum).toString();
+            });
+            //橙色的按钮点击以后可以取消点赞
+        }else if($('#dianzanbtn').css('color') === 'rgb(252, 85, 49)'){
+            $('#dianzanbtn').css('color','rgb(137, 137, 137)');
+            AxiosPostRequst("http://localhost:8080/BlogWeb/LikeServlet?method=cancelLikeBlog", {
+                'blogid': GetUrlParam("articleid")
+            }).then(res => {
+                dianzannum--;
+                document.getElementById("likenumshow").innerHTML = (dianzannum).toString();
+                console.log(res.msg);
+            });
+        }
+
+    });
+
+</script>
+
+
+</body>
+</html>

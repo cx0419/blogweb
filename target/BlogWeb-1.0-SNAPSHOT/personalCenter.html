@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <script src="js/axiosUtil.js" type="text/javascript"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+    <link rel="stylesheet" href="css/headnav.css">
+    <link rel="stylesheet" href="css/Bootstrap.css">
+    <script src="js/Vue.js"></script>
+    <script src="js/loadnav.js"></script>
+    <link rel="stylesheet" href="css/personalCenter.css">
+    <script src="js/personalCenter.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/ajaxfileupload.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<!-- 导航栏 -->
+<div class="head">
+    <div class="head-lead">
+        <ul>
+            <li class="head-lead-nav"><a href="http://localhost:8080/BlogWeb/index.html">首页</a></li>
+            <li class="head-lead-nav"><a href="">分区</a></li>
+            <li class="head-lead-nav"><a href="">社区</a></li>
+            <li class="head-lead-nav"><a href="">学习</a></li>
+        </ul>
+    </div>
+    <div class="head-search">
+        <input type="search" name="" id="searchsomething" placeholder="搜点什么吧......">
+        <button id="nav-searchbtn" type="button">搜索</button>
+    </div>
+    <div class="head-myself">
+        <ul>
+            <li class="head-myself-nav"><a  id="edit"  href="http://localhost:8080/BlogWeb/edit.html">创作</a></li>
+            <li id="nav-msgbtn" class="head-myself-nav"><a href="">消息</a></li>
+            <li id="nav-collectionbtn" class="head-myself-nav"><a href="">收藏</a></li>
+            <li id="nav-focusbtn" class="head-myself-nav"><a href="">关注</a></li>
+            <li id="nav-myblogbtn" class="head-myself-nav"><a href="">博客</a></li>
+            <li class="head-myself-nav" id="avatarli"><img id="avatar" src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg" alt="">
+                <div class="head-myself-infobolck" id="head-myself-infobolck">
+                    <!-- 头像 名字 -->
+                    <div class="head-myself-infobolck-name"><h2 id="nav-nickname">程序员1</h2><span id="nav-introduction">--</span></div>
+                    <!-- 粉丝展示 -->
+                    <div class="head-myself-infobolck-fans">
+                        <div><h4 id="nav-fansnum">0</h4><h3>粉丝</h3></div>
+                        <div><h4 id="nav-view">0</h4><h3>访问量</h3></div>
+                        <div><h4 id="nav-likenum">0</h4><h3>获赞</h3></div>
+                    </div>
+                    <!-- 导航 -->
+                    <div class="head-myself-infobolck-nav">
+                        <ul>
+                            <li ><a id="personalCenter" href="http://localhost:8080/BlogWeb/personalCenter.html"><span class="iconfont">&#xe643;</span>个人中心</a></li>
+                            <li><a id="AlterPassword" href="http://localhost:8080/BlogWeb/personalCenter.html"><span class="iconfont">&#xe83e;</span>修改密码</a></li>
+                            <li ><a id="createBlog"  href=""><span class="iconfont">&#xe67d;</span>内容管理</a></li>
+                            <li class="exit-login"><a id="exitlogin" href=""><span class="iconfont">&#xe6ba;</span>退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>getnavinfo();</script>
+
+<div class="personal" >
+    <div class="personal-left">
+        <div class="personal-left-nav">
+            <ul>
+                <li style="background-color:#00BFFF" id="userinfobtn" onclick="openpersonal()"><a href="#">个人资料</a></li>
+                <li id="accountsetbtn"><a href="#" onclick="openAccountSet()">账号设置</a></li>
+                <li id="fanslistbtn" onclick="openfans()"><a href="#">粉丝列表</a></li>
+                <li id="focuslistbtn" onclick="openfocus()"><a href="#">关注列表</a></li>
+                <li id="collectionbtn"><a href="#">我的收藏</a></li>
+                <li id="historybtn"><a href="#">浏览历史</a></li>
+                <li id="contentbtn"><a href="#">内容管理</a></li>
+                <li id="learnbtn"><a href="#">学习计划管理</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--个人资料界面-->
+    <div  class="personal-right flex" id="personal">
+        <div class="personal-right-top01">
+            <div class="personal-right-top01-info">
+                <div class="personal-right-top01-info-avatar"><img id="avatar01"
+                        src="https://pic4.zhimg.com/80/v2-c22a5907d3881bf0ef5285c3b4b12703_1440w.jpg" alt="" onclick="popWindow()"></div>
+                <div class="personal-right-top01-info-name">
+                    <span id="nickname01"></span>
+                    <span id="age">60岁</span>
+                </div>
+                <div class="personal-right-top01-info-other">
+
+                </div>
+            </div>
+            <div class="personal-right-top01-goto">
+                <div><button onclick="gotopoerson()" class="btn" id="openblog-btn">查看个人博客</button></div>
+            </div>
+        </div>
+        <div class="personal-right-top02">
+            <div class="personal-right-top02-head">基本信息<button class="btn" id="save-btn">保存资料</button></div>
+            <!-- <div class="personal-right-top02-content"></div> -->
+            <div class="personal-right-top02-content-show">
+                <ul>
+                    <li>
+                        <div class="content-show-l">用户昵称:</div>
+                        <input type="text" class="content-show-r" id="nickname02">
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                    <li>
+                        <div class="content-show-l">用户账号:</div>
+                        <div class="content-show-r" id="account"></div>
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                    <li>
+                        <div class="content-show-l">用户邮箱:</div>
+                        <div class="content-show-r" id="email"></div>
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                    <li>
+                        <div class="content-show-l">性别:</div>
+                        <div class="content-show-r">
+                            <input class="sexselect" type="radio" name="sex" checked value="女">女
+                            <input class="sexselect" type="radio" name="sex" checked value="男">男
+                        </div>
+
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                    <li>
+                        <div class="content-show-l">个人简介:</div>
+                        <input  class="content-show-r" contenteditable="true" id="briinf">
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                    <li>
+                        <div class="content-show-l">所在地:</div>
+                        <input  type="text" v-model="location" class="content-show-r" contenteditable="true" id="location">
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                    <li>
+                        <div class="content-show-l">出生日期</div>
+                        <div class="content-show-r">
+                            <input id="birthday" class="selectdate" type="date" max="2022-07-22" value="2022-01-01">
+                        </div>
+                        <div class="personal-edit-btn"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="personal-right-top03">
+            <div class="personal-right-top03-head">
+                兴趣标签
+                <span id="interest-tip">请您选择感兴趣和不感兴趣的技术领域,BlogWeb会根据您的标签帮您找到 </span>
+            </div>
+            <div class="personal-right-top03-content">
+                <div class="personal-right-top03-content-left">感兴趣</div>
+                <div class="personal-right-top03-content-right">
+                    <!-- 在此div中看到添加的标签 -->
+                    <div class="personal-right-top03-content-right-top">
+                        <ul>
+                            <li class="small-tag-select">tomcat</li>
+                            <li class="small-tag-select">javase</li>
+                        </ul>
+                    </div>
+                    <!-- 在此div中选择大体的方向 -->
+                    <div class="personal-right-top03-content-right-mid">
+                        <ul>
+                            <li class="big-tag">java</li>
+                            <li class="big-tag">c++</li>
+                            <li class="big-tag">数据结构与算法</li>
+                            <li class="big-tag">Python</li>
+                            <li class="big-tag">ios</li>
+                            <li class="big-tag">移动开发</li>
+                            <li class="big-tag">操作系统</li>
+                        </ul>
+                    </div>
+                    <!-- 在此div中选择具体的标签 -->
+                    <div class="personal-right-top03-content-right-bottom">
+                        <ul>
+                            <li class="small-tag-noselect">tomcat</li>
+                            <li class="small-tag-noselect">javase</li>
+                            <li class="small-tag-noselect">html</li>
+                            <li class="small-tag-noselect">JavaScript</li>
+                            <li class="small-tag-noselect">mybatis</li>
+                            <li class="small-tag-noselect">redis</li>
+                            <li class="small-tag-noselect">tomcat</li>
+                            <li class="small-tag-noselect">javase</li>
+                            <li class="small-tag-noselect">html</li>
+                            <li class="small-tag-noselect">JavaScript</li>
+                            <li class="small-tag-noselect">mybatis</li>
+                            <li class="small-tag-noselect">redis</li>
+                            <li class="small-tag-noselect">tomcat</li>
+                            <li class="small-tag-noselect">javase</li>
+                            <li class="small-tag-noselect">html</li>
+                            <li class="small-tag-noselect">JavaScript</li>
+                            <li class="small-tag-noselect">mybatis</li>
+                            <li class="small-tag-noselect">redis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--粉丝列表-->
+    <div class="fans none" id="fans">
+        <div class="fans-head">
+            <div class="fans-head-title">粉丝列表</div>
+        </div>
+        <ul class="fans-list" id="fanslist">
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+<!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+<!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+<!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+<!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="fens-content-fenye">
+            <ul class="pagination">
+                <li><a href="#">&laquo;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li class="disabled"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+
+        </div>
+    </div>
+    <!--关注列表-->
+    <div class="focus none" id="focus">
+        <div class="fans-head">
+            <div class="fans-head-title">关注列表</div>
+        </div>
+        <ul class="fans-list" id="focuslist">
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+            <li class="fansunit">
+                <div class="fansunit-center">
+                    <div class="fansunit-center-left">
+                        <!--                        头像-->
+                        <div class="fansunit-center-left-head">
+                            <img src="https://t10.baidu.com/it/u=1573298871,55655742&fm=173&s=9E34EE034AF17BB53C8154FA03007028&w=350&h=350&img.PNG" alt="" class="fans-img">
+                        </div>
+                        <!--                        名字+简介-->
+                        <div class="fansunit-center-left-outdiv ">
+                            <!--                            名字-->
+                            <div class="left-outdiv-name">avatar</div>
+                            <!--                            简介-->
+                            <div class="left-outdiv-introd">这个人很懒~暂时还没有个人简介</div>
+                        </div>
+                    </div>
+                    <div class="fansunit-center-right">
+                        <input type="button" class="fansunit-focusbtn" value="已互关">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="fens-content-fenye">
+            <ul class="pagination">
+                <li><a href="#">&laquo;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li class="disabled"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+
+        </div>
+    </div>
+    <!--账号设置-->
+    <div class="set none" id="set">
+            <div class="login-wrapper set-content">
+                <div class="header">修改密码</div>
+                <div class="setmsg"></div>
+                <div class="form-wrapper">
+                    <span class="qianspan">账号:</span><input type="text"  id="setaccount"  class="input-item" name="username" placeholder="" disabled="disabled">
+                    <span class="qianspan">邮箱:</span><input id="setemail" type="text" class="input-item" name="password" placeholder="" value="123@qq.com" disabled="disabled">
+                    <span class="qianspan">新密码:</span><input data-toggle="tooltip"  title="包含数字+英文字母至少8位" id="setpassword" type="password" class="input-item" name="password" placeholder="">
+                    <span class="qianspan">确认密码:</span><input data-toggle="tooltip"  title="请确保一致" id="agaginpassword" type="password" class="input-item" name="password" placeholder="">
+                    <span class="qianspan">验证码:</span><input data-toggle="tooltip"  title="在此输入验证码" id="setcode" type="password" class="input-item" name="password" placeholder="">
+                    <input type="button" id="sendAlterEmail" class="btn1" value="发送验证码">
+                    <input type="button" id="alterpsw1" class="btn1" value="确认修改">
+                </div>
+                <div class="msg">
+                     收不到验证码?<a href="#">查看帮助</a>
+                </div>
+            </div>
+    </div>
+
+</div>
+<!--个人资料js-->
+<script>
+    //生日不可选择未来
+    $(function(){
+        //得到当前时间
+        var date_now = new Date();
+        //得到当前年份
+        var year = date_now.getFullYear();
+        //得到当前月份
+        //注：
+        //  1：js中获取Date中的month时，会比当前月份少一个月，所以这里需要先加一
+        //  2: 判断当前月份是否小于10，如果小于，那么就在月份的前面加一个 '0' ， 如果大于，就显示当前月份
+        var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+        //得到当前日子（多少号）
+        var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+        //设置input标签的max属性
+        $("#birthday").attr("max",year+"-"+month+"-"+date);
+    })
+    function gotopoerson(){
+        window.open("http://localhost:8080/BlogWeb/person.html?id="+getCookie("id"));
+    }
+    //提示
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+        // $("[data-toggle='tooltip']").delay(500,500);
+    });
+    //警告
+    function popSucceedWindows(msg){
+        let bodyEle = document.body;
+        let str = "\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\"\n" +
+            "\t\t\taria-hidden=\"true\">\n" +
+            "\t\t&times;\n" +
+            "\t</button>"+msg;
+        let div = document.createElement('div');
+        div.classList.add("alert");
+        div.classList.add("alert-success");
+        div.classList.add("alert-dismissable");
+        div.classList.add("alertbyBootSt");
+        div.innerHTML = str;
+        $("body").append(div);
+        setTimeout(e =>{
+            div.remove();
+        },3*1000);
+    }
+    /**
+     * 获取url当中的key->value
+     * @param paraName
+     * @returns {string}
+     * @constructor
+     */
+    function GetUrlParam(paraName) {
+        var url = window.location.toString();
+        var arrObj = url.split("?");
+
+        if (arrObj.length > 1) {
+            var arrPara = arrObj[1].split("&");
+            var arr;
+
+            for (var i = 0; i < arrPara.length; i++) {
+                arr = arrPara[i].split("=");
+
+                if (arr != null && arr[0] == paraName) {
+                    return arr[1];
+                }
+            }
+            return "";
+        }
+        else {
+            return "";
+        }
+    }
+    //文件上传
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.id="files";
+    input.name = 'file';
+    let body = document.getElementsByTagName('body')[0];
+    body.appendChild(input);
+    //按钮
+    var saveBtn = document.getElementById("save-btn");
+    var openblogBtn = document.getElementById("openblog-btn");
+    //各个元素
+    nameinput = document.getElementById("nickname02");
+    emailinput = document.getElementById("email");
+    locationinput = document.getElementById("location");
+    sexinput = document.getElementsByName("sex");
+    birthdayinput = document.getElementById("birthday");
+    introductioninput = document.getElementById("briinf");
+    accountinput = document.getElementById("account");
+    // const vm = new Vue({
+    //     el: '#USER',
+    //     data: {
+    //         name: '[暂无]',
+    //         account:null,
+    //         email:null,
+    //         location:'[暂无]',
+    //         introduction:'[暂无]',
+    //         birthday:'[暂无]'
+    //     }
+    // })
+    $('input:file').change(function () {
+        // 上传文件
+        $.ajaxFileUpload({
+            url: "http://localhost:8080/BlogWeb/FileServlet?method=UserAvatar",
+            type: "POST",
+            //文件选择框的id属性
+            fileElementId: 'files',
+            data:{
+                id:GetUrlParam("id")
+            },
+            //服务器返回的格式
+            dataType: 'json',
+            success: function (data) {
+                document.getElementById("avatar01").setAttribute("src",data.url);
+                loadnav();
+            },
+            error: function (data, status, e) {
+                console.log(e);
+            }
+        });
+    });
+    function popWindow() {
+        // input.setAttribute("display","none");
+        input.click();
+    }
+
+
+    saveBtn.addEventListener('click',  function(){
+        var sex;
+        for (let i = 0; i <sexinput.length ; i++) {
+            if(sexinput[i].checked)
+                sex = sexinput[i].value;
+        }
+        sex = sex === "男";
+        var json={
+            'name':document.getElementById("nickname02").value,
+            'account':accountinput.innerHTML,
+            'gender':sex,
+            'introduction':introductioninput.value,
+            'birthday':birthdayinput.value+" 00:00:00",
+            'location':location.value,
+            'admin':false
+        }
+        AxiosPostRequst("http://localhost:8080/BlogWeb/UpdateServlet?method=UpdateUser",{
+            "json":JSON.stringify(json)
+        }).then(res => {
+            popSucceedWindows("修改资料成功！");
+            openpersonal();
+        });
+
+    });
+</script>
+
+<!--各个页面切换-->
+<script>
+    let personal = document.getElementById("personal");
+    let fans = document.getElementById("fans");
+    let focus = document.getElementById("focus");
+    let set = document.getElementById("set");
+    let num = 0;
+    function closeAll(){
+        if (personal.classList.contains("flex")) {
+            personal.classList.remove("flex");
+        }
+        personal.classList.add("none");
+
+        if (fans.classList.contains("flex")) {
+            fans.classList.remove("flex");
+        }
+        fans.classList.add("none");
+        if (focus.classList.contains("flex")) {
+            focus.classList.remove("flex");
+        }
+        focus.classList.add("none");
+        if (set.classList.contains("flex")) {
+            set.classList.remove("flex");
+        }
+        set.classList.add("none");
+        $("#fanslistbtn").css("background-color","transparent");
+        $("#userinfobtn").css("background-color","transparent");
+        $("#focuslistbtn").css("background-color","transparent");
+        $("#accountsetbtn").css("background-color","transparent");
+    }
+
+    function openpersonal(){
+        //初始化
+        let adminid = getCookie("adminid");
+        let id = GetUrlParam("id");
+        AxiosPostRequst("http://localhost:8080/BlogWeb/UserServlet?method=getUserById",{
+            //如果有管理员的cookie那就直接进入这个人的修改,
+            id:(id===null || id==="")?getCookie("id"):id
+        }).then((res) => {
+            let user = res.user;
+            document.getElementById("avatar01").setAttribute("src",user.avatar);
+            document.getElementById("nickname01").innerHTML = user.name;
+            document.getElementById("nickname02").value = user.name;
+            document.getElementById("account").innerHTML = user.account;
+            //出生时间 毫秒
+            var birthDayTime = new Date(user.birthday.substr(0,10)).getTime();
+            //当前时间 毫秒
+            var nowTime = new Date().getTime();
+            //一年毫秒数(365 * 86400000 = 31536000000)
+            document.getElementById("age").innerText = Math.ceil((nowTime-birthDayTime)/31536000000)+"岁";
+            if(user.sex===false){
+                document.getElementsByName("sex")[0].setAttribute("checked","checked");
+            }else{
+                document.getElementsByName("sex")[1].setAttribute("checked","checked");
+            }
+            birthdayinput.value = user.birthday.substr(0,10);
+            introductioninput.value = user.introduction;
+            document.getElementById("email").innerHTML = user.email;
+        });
+        closeAll();
+        if (personal.classList.contains("none")) {
+            personal.classList.remove("none");
+        }
+        personal.classList.add("flex");
+        $("#userinfobtn").css("background-color","#00BFFF");
+    }
+    function openfans(){
+        AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=getFans",{
+            id:GetUrlParam("id")
+        }).then((res) => {
+            $('#fanslist').empty();
+            console.log(res.users);
+           let users = res.users;
+
+           for(let i = 0 ; i < users.length ; i++){
+               let userForFocus = users[i];
+               let user = userForFocus.user;
+               let btnid = "fansfocusbtn"+user.id.toString();
+               let focusstaus = userForFocus.status===true?"互相关注":"关注";
+               console.log("ffff:"+focusstaus);
+               if(user.introduction==null){
+                   user.introduction = "这个人很懒什么都没写~";
+               }
+               if(user.avatar===null){
+                   avatar = "https://profile.csdnimg.cn/3/D/A/1_seventy70";
+               }
+               // 给div里面加li
+               let str =
+                   "                <div class=\"fansunit-center\">\n" +
+                   "                    <div class=\"fansunit-center-left\">\n" +
+                   "                        <!--                        头像-->\n" +
+                   "                        <div class=\"fansunit-center-left-head\">\n" +
+                   "                            <img src=\""+user.avatar+"\" alt=\"\" class=\"fans-img\">\n" +
+                   "                        </div>\n" +
+                   "                        <!--                        名字+简介-->\n" +
+                   "                        <div class=\"fansunit-center-left-outdiv \">\n" +
+                   "                            <!--                            名字-->\n" +
+                   "                            <div class=\"left-outdiv-name\">"+user.name+"</div>\n" +
+                   "                            <!--                            简介-->\n" +
+                   "                            <div class=\"left-outdiv-introd\">"+user.introduction+"</div>\n" +
+                   "                        </div>\n" +
+                   "                    </div>\n" +
+                   "                    <div class=\"fansunit-center-right\">\n" +
+                   "                        <input id=\""+btnid+"\"type=\"button\" class=\"fansunit-focusbtn\" value=\""+focusstaus+"\">\n" +
+                   "                    </div>\n" +
+                   "                </div>\n";
+               let div = document.createElement('li');
+               div.classList.add("fansunit");
+               div.innerHTML = str;
+               $('#fanslist').append(div);
+               let json = {
+                       'bloggerId':user.id,
+                       'fansId':getCookie("id")
+               }
+               $('#'+btnid).on('click', e => {
+                   if(document.getElementById(btnid).value==="互相关注"){
+                       popSucceedWindows("取关成功！");
+                       AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=cancelAttention",{
+                           "attention":JSON.stringify(json)
+                       }).then(res => {
+                           document.getElementById(btnid).value = "关注";
+                       });
+                   }else{
+                       popSucceedWindows("关注成功！");
+                       AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=AttentionSomeone",{
+                           "attention":JSON.stringify(json)
+                       }).then(res => {
+                           document.getElementById(btnid).value ="互相关注";
+                       });
+                   }
+               });
+           }
+
+        });
+        closeAll();
+        if (fans.classList.contains("none")) {
+            fans.classList.remove("none");
+        }
+        fans.classList.add("flex");
+        $("#fanslistbtn").css("background-color","#00BFFF");
+    }
+    function openfocus(){
+        AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=getFocus",{
+            id:GetUrlParam("id")
+        }).then((res) => {
+            $('#focuslist').empty();
+            console.log(res.users);
+            let users = res.users;
+
+            for(let i = 0 ; i < users.length ; i++){
+                let user = users[i];
+                if(user.introduction==null){
+                    user.introduction = "这个人很懒什么都没写~";
+                }
+                if(user.avatar===null){
+                    avatar = "https://profile.csdnimg.cn/3/D/A/1_seventy70";
+                }
+                let btnid = "focusbtn"+user.id.toString();
+                // 给div里面加li
+                let str =
+                    "                <div class=\"fansunit-center\">\n" +
+                    "                    <div class=\"fansunit-center-left\">\n" +
+                    "                        <!--                        头像-->\n" +
+                    "                        <div class=\"fansunit-center-left-head\">\n" +
+                    "                            <img src=\""+user.avatar+"\" alt=\"\" class=\"fans-img\">\n" +
+                    "                        </div>\n" +
+                    "                        <!--                        名字+简介-->\n" +
+                    "                        <div class=\"fansunit-center-left-outdiv \">\n" +
+                    "                            <!--                            名字-->\n" +
+                    "                            <div class=\"left-outdiv-name\">"+user.name+"</div>\n" +
+                    "                            <!--                            简介-->\n" +
+                    "                            <div class=\"left-outdiv-introd\">"+user.introduction+"</div>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"fansunit-center-right\">\n" +
+                    "                        <input id=\""+btnid+"\" type=\"button\" class=\"fansunit-focusbtn\" value=\"取消关注\">\n" +
+                    "                    </div>\n" +
+                    "                </div>\n";
+                let div = document.createElement('li');
+                div.classList.add("fansunit");
+                div.innerHTML = str;
+                $('#focuslist').append(div);
+                let json = {
+                    'bloggerId':user.id,
+                    'fansId':getCookie("id")
+                }
+                $('#'+btnid).on('click', e => {
+                    if(document.getElementById(btnid).value==="取消关注"){
+                        popSucceedWindows("取关成功！");
+                        AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=cancelAttention",{
+                            "attention":JSON.stringify(json)
+                        }).then(res => {
+                            document.getElementById(btnid).value = "关注";
+                        });
+                    }else{
+                        popSucceedWindows("关注成功！");
+                        AxiosPostRequst("http://localhost:8080/BlogWeb/AttentionServlet?method=AttentionSomeone",{
+                            "attention":JSON.stringify(json)
+                        }).then(res => {
+                            document.getElementById(btnid).value = "取消关注";
+                        });
+                    }
+                });
+            }
+
+        });
+        closeAll();
+        if (focus.classList.contains("none")) {
+            focus.classList.remove("none");
+        }
+        focus.classList.add("flex");
+        $("#focuslistbtn").css("background-color","#00BFFF");
+    }
+
+
+    function openAccountSet(){
+        AxiosPostRequst("http://localhost:8080/BlogWeb/UserServlet?method=getUser",{
+            'account': getCookie("account"),
+        }).then(res => {
+            avatar.src = res.user.avatar;
+            $("#setaccount").val(res.user.account);
+            $("#setemail").val(res.user.email);
+        });
+        function settime(el){
+            if(num===0){
+                document.getElementById("sendAlterEmail").style.backgroundColor = "#22a8e2";
+                el.value = '发送验证码';
+                document.getElementById("sendAlterEmail").removeAttribute("disabled");
+                return;
+            }else{
+                document.getElementById("sendAlterEmail").style.backgroundColor = "#ccc";
+                document.getElementById("sendAlterEmail").setAttribute("disabled","disabled");
+                el.value = num + '秒后重新获取';
+                num--;
+            }
+            setTimeout(function (){
+                settime(el);
+            },1000)
+        }
+        $('#sendAlterEmail').on('click', e => {
+            AxiosPostRequst("http://localhost:8080/BlogWeb/UpdateServlet?method=SendVC",{
+                'email': document.getElementById("setemail").value,
+            }).then(res => {
+                if(res.msg==="验证码仍有效") return;
+                if(num<60){
+                    num = 60;
+                }
+                settime(document.getElementById("sendAlterEmail"));
+            });
+        });
+        $('#alterpsw1').on('click', e => {
+            //var data = Qs.stringify(json)
+            AxiosPostRequst("http://localhost:8080/BlogWeb/UpdateServlet?method=AlterPassword",{
+                'account':document.getElementById("setaccount").value,
+                'email': document.getElementById("setemail").value,
+                'password':document.getElementById("setpassword").value,
+                'verificationcode':document.getElementById("setcode").value
+            }).then(res => {
+            });
+        });
+        closeAll();
+        if (set.classList.contains("none")) {
+            set.classList.remove("none");
+        }
+        $("#accountsetbtn").css("background-color","#00BFFF");
+    }
+</script>
+
+
+<script >
+   function init(){
+        let page = GetUrlParam("page");
+        if(page==="person"){
+            openpersonal();
+        }else if(page==="alterpassword"){
+            openAccountSet();
+        }else if(page==="fans"){
+            openfans();
+        }else if(page==="focus"){
+            openfocus();
+        }else{
+            document.body.innerHTML="请输入正确的url地址";
+            document.body.style.backgroundImage="url(xxx.jpg)"
+        }
+    }
+   init();
+</script>
+</body>
+
+</html>

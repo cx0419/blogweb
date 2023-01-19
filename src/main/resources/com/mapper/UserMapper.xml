@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="com.pojo.User">
+        <result column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="name" property="name"/>
+        <result column="password" property="passWord"/>
+        <result column="create_time" property="createTime"/>
+        <result column="gender" property="gender"/>
+        <result column="introduction" property="introduction"/>
+        <result column="birthday" property="birthday"/>
+        <result column="location" property="location"/>
+        <result column="admin" property="admin"/>
+        <result column="avatar" property="avatar"/>
+    </resultMap>
+
+    <resultMap id="userExtendResultMap" type="com.pojo.UserExtend">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="view" property="view"/>
+        <result column="original" property="original"/>
+        <result column="like" property="like"/>
+        <result column="collection" property="collection"/>
+        <result column="comment" property="comment"/>
+        <result column="fans" property="fans"/>
+        <result column="version" property="version"/>
+    </resultMap>
+
+    <insert id="addUser">
+        insert into t_user(account,`name`,password,email,create_time) values (#{account} ,#{name} ,#{passWord},#{email} ,#{createTime});
+    </insert>
+    <update id="updateUser">
+        update t_user
+        set `name` = #{name}, introduction=#{introduction}, birthday =#{birthday}, `admin`=#{admin},location=#{location},gender=#{gender}
+        where account = #{account}
+    </update>
+    <update id="UpdatePassword">
+        update t_user
+        set password = #{password}
+        where account = #{account}
+    </update>
+    <update id="UpdateAvatar">
+        update t_user
+        set avatar = #{avatar}
+        where id = #{id}
+    </update>
+    <update id="updateUserIsDelete">
+        update t_user
+        set is_delete = #{st}
+        where id = #{id}
+    </update>
+    <select id="selectAll" resultType="java.lang.Long">
+        select id
+        from t_user;
+    </select>
+    <select id="selectByUP" resultType="com.pojo.User" resultMap="userResultMap">
+        select *
+        from t_user
+        where account = #{account}
+          and password = #{password};
+    </select>
+    <select id="selectByAccount" resultType="com.pojo.User" resultMap="userResultMap">
+    select *
+    from t_user
+    where account = #{account};
+</select>
+    <select id="selectById" resultType="com.pojo.User">
+        select *
+        from t_user
+        where id = #{id};
+    </select>
+    <select id="selectByEmail" resultType="com.pojo.User">
+        select id
+        from t_user
+        where email = #{email}
+    </select>
+    <select id="selectUsersByKey" resultType="com.pojo.User" resultMap="userResultMap">
+        select *
+        from t_user
+        where introduction like concat('%',#{key},'%') or `name` like concat('%',#{key},'%')
+        <if test="pagesize != null and offset != null">
+            limit ${offset}, ${pagesize}
+        </if>;
+    </select>
+    <select id="selectUsersNumByKey" resultType="java.lang.Integer">
+        select count(*)
+        from t_user
+        where introduction like concat('%',#{key},'%') or `name` like concat('%',#{key},'%');
+    </select>
+    <select id="selectUserExtendByUId" resultType="com.pojo.UserExtend" resultMap="userExtendResultMap">
+        select *
+        from t_userextend
+        where user_id = #{uid};
+    </select>
+
+
+</mapper>

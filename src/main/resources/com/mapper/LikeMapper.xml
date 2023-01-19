@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.LikeMapper">
+    <resultMap id="LikeResultMap" type="com.pojo.Like">
+        <result column="id" property="id"/>
+        <result column="blog_id" property="blogId"/>
+        <result column="id" property="id"/>
+        <result column="id" property="id"/>
+    </resultMap>
+    <insert id="InsertMoreLike">
+        insert into t_like(user_id,blog_id,isdelete) values (#{userid},#{blogid},#{isdelete})
+        ON DUPLICATE KEY UPDATE user_id = #{userid},blog_id = #{blogid},isdelete = #{isdelete}
+    </insert>
+    <select id="selectLikeNumByblogId" resultType="java.lang.Integer">
+        select count(*)
+        from blogweb.t_like
+        where blog_id = #{blogid} and isdelete = false
+    </select>
+    <select id="selectLikeByUIdAndBId" resultType="com.pojo.Like" resultMap="LikeResultMap">
+        select id
+        from t_like
+        where user_id = #{userid} and blog_id = #{blogid} and isdelete = false
+    </select>
+</mapper>
